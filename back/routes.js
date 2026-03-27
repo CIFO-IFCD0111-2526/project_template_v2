@@ -51,7 +51,7 @@ router.post("/signin", async (request, response) => {
     if (results.length === 0) {
       console.log("El usuario no existe.");
       response.status(400).json({ error: "El usuario no existe." });
-    } else if (!bcrypt.compareSync(password, results[0].password)) { // Al comparar la contraseña con la almacenada en la DB, la encriptamos antes con 
+    } else if (!bcrypt.compareSync(password, results[0].password)) { // Comparar la contraseña que nos han pasado por parámetro con la almacenada encriptada en la DB
       console.log("La contraseña es incorrecta.");
       response.status(400).json({ error: "La contraseña es incorrecta." });
     } else {
@@ -59,10 +59,10 @@ router.post("/signin", async (request, response) => {
       const accessToken = jwt.sign({ email }, process.env.JWT_SECRET, {
         expiresIn: "1h",
       });
-      // Cookie que le enviamos al nevagador automaticamente
+      // Cookie que le enviamos al navegador automáticamente
       response.cookie("accessToken", accessToken, {
         httpOnly: true,
-        secure: false, // True en produccion https
+        secure: false, // True en producción https
         sameSite: "strict",
         maxAge: 3600000, // 1h
       }).status(200).json({
