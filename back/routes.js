@@ -51,7 +51,7 @@ router.post("/signin", async (request, response) => {
     if (results.length === 0) {
       console.log("El usuario no existe.");
       response.status(400).json({ error: "El usuario no existe." });
-    } else if (!bcrypt.compareSync(password, results[0].password)) {
+    } else if (!bcrypt.compareSync(password, results[0].password)) { // Al comparar la contraseña con la almacenada en la DB, la encriptamos antes con 
       console.log("La contraseña es incorrecta.");
       response.status(400).json({ error: "La contraseña es incorrecta." });
     } else {
@@ -65,7 +65,7 @@ router.post("/signin", async (request, response) => {
         secure: false, // True en produccion https
         sameSite: "strict",
         maxAge: 3600000, // 1h
-      }).json.status(200).json({
+      }).status(200).json({
         message: "Inicio de sesión aceptado",
       });
     }
