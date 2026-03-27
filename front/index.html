@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +8,7 @@
     <link rel="stylesheet" href="./styles.css">
     <script src="./scripts.js" defer></script>
 </head>
+
 <body>
     <header>
         <nav id="nav">
@@ -15,8 +17,17 @@
     </header>
     <main>
         <h1>Bienvenido</h1>
+        <form novalidate>
+            <label for="email">*Email</label>
+            <input type="email" class="input" name="email" id="emailSigIn" placeholder="">
+            <label for="password">Password</label>
+            <input type="password" class="input" name="password" id="passwordSignIn" placeholder="">
+            <button type="submit" class="submit">Sig In!</button>
+            <div id="signInRES"></div>
+        </form>
         <!-- TODO: Equipo Front HTML - crear formularios de login y registro aqui -->
         <!-- Ver issues en GitHub para las tareas asignadas -->
     </main>
 </body>
+
 </html>
