@@ -8,7 +8,8 @@ const signUpRES = document.querySelector("#signUpRES");
 // registro
 forms[1].addEventListener("submit", async e => {
     e.preventDefault();
-    const res = await fetch("http://localhost:3000/signup", {
+    try{
+    const res = await fetch("/api/v1/signup", {
         method: "post",
         body: JSON.stringify({ 
             email: e.target.emailSignUp.value,
@@ -20,4 +21,7 @@ forms[1].addEventListener("submit", async e => {
 
     if (resJSON.error) signUpRES.textContent = resJSON.error;
     else signUpRES.textContent = resJSON.message;
+} catch(error){
+    signUpRES.textContent="Error de conexion con el servidor";
+}
 });
