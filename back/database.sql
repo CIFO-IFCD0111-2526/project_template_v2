@@ -14,14 +14,13 @@ USE tareas;
 CREATE TABLE IF NOT EXISTS `tareas`.`users` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `email` VARCHAR(255) NOT NULL,
-  `password` VARCHAR(45) NOT NULL,
-  `createAt` DATETIME(1) NULL DEFAULT CURRENT_TIMESTAMP,
-  `updatedAt` DATETIME(1) NULL DEFAULT CURRENT_TIMESTAMP,
+  `password` VARCHAR(255) NOT NULL,
+  `createAt` DATETIME(1)  DEFAULT CURRENT_TIMESTAMP,
+  `updatedAt` DATETIME(1) ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `email_UNIQUE` (`email` ASC) )
 ENGINE = InnoDB;
 
--- Tabla tareas: crear aqui
 -- -----------------------------------------------------
 -- Table `tareas`.`tareas`
 -- -----------------------------------------------------
@@ -33,8 +32,8 @@ CREATE TABLE IF NOT EXISTS `tareas`.`tareas` (
   `createdAt` DATETIME(1) NULL DEFAULT current_timestamp,
   PRIMARY KEY (`id`),
   CONSTRAINT `fk_tareas_users`
-    FOREIGN KEY (`users_id`)
-    REFERENCES `jwk`.`users` (`id`)
+    FOREIGN KEY (`user_id`)
+    REFERENCES `tareas`.`users` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
