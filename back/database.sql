@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS `tareas`.`tareas` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `titulo` VARCHAR(255) NOT NULL,
   `completada` TINYINT NULL DEFAULT 0,
-  `users_id` INT NOT NULL,
+  `user_id` INT NOT NULL,
   `createdAt` DATETIME(1) NULL DEFAULT current_timestamp,
   PRIMARY KEY (`id`),
   CONSTRAINT `fk_tareas_users`
