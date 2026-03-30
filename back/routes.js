@@ -8,12 +8,8 @@ const jwt = require("jsonwebtoken");
 
 const { authAPI } = require("./auth.middleware.js");
 
-// TODO: Equipo Back Express - implementar endpoints aqui
-// Ver issues en GitHub para las tareas asignadas
-
 module.exports = router;
 
-<<<<<<< feat/API_sign_in
 // schema JOI para comprovar que los datos cumplen ------ //
 
 const UserSchema = joi.object({
@@ -72,15 +68,6 @@ router.post("/signin", async (request, response) => {
     }
   }
 });
-=======
-
-// schema JOI para comprovar que los datos cunmplen 
-
-const UserSchema = joi.object({
-    email: joi.string().email().required(),
-    password: joi.string().min(6).required(),
-});
-// schema JOI para comprovar que los datos cumplen ------ // 
 
 router.post("/signup", async (request, response) => {
     // logica de comprovacion de login //
@@ -136,78 +123,3 @@ router.post("/signup", async (request, response) => {
         }
     }
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// esto deberia ser la linai 150 
->>>>>>> develop
