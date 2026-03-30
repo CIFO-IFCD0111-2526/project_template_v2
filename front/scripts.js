@@ -37,8 +37,8 @@ forms[1].addEventListener("submit", async e => {
     const res = await fetch("/api/v1/signup", {
         method: "post",
         body: JSON.stringify({ 
-            email: e.target.emailSignUp.value,
-            password: e.target.passwordSignUp.value
+            email: value.email,
+            password: value.password
         }),
         headers: { "Content-Type": "application/json" },
     });
