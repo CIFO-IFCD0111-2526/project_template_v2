@@ -82,7 +82,7 @@ router.post("/signup", async (request, response) => {
         try {
             await UserSchema.validateAsync({ email, password });
         } catch (error) {
-            return res.status(400).json({ error: error.details[0].message });
+            return response.status(400).json({ error: error.details[0].message });
         }
         // comprobado con joi que cumplen condiciones------------------------------------// 
         // Query a DB para ver si el usuario existe
