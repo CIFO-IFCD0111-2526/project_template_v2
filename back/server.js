@@ -29,10 +29,20 @@ server.get("/", (req, res) => {
 //     res.sendFile(path.join(__dirname, "../front", "private.html"));
 // });
 
+
+// Ruta-> para la pagina de Tareas
+// GET /private -> /private -> private.html
+server.get("/private", authPage, (request,response) => {
+    response.sendFile(path.join(__dirname, '..' , 'front' , 'private.html'));
+});
+
+// Ruta-> Pagina de tareas (Privada)
+// GET /account -> Sirve front/account.html
+server.get("/account", authPage, (request,response) =>{
+    response.sendFile(path.join(__dirname, '..' , 'front' , 'account.html'));
+} );
+
+
 const PORT = process.env.PORT || 3000;
 server.listen(PORT, () => console.log("Servidor activo en http://localhost:" + PORT));
-
-// Ruta: Página de tareas (Privada)
-// GET /private -> Sirve front/private.html
-router.get()
 
