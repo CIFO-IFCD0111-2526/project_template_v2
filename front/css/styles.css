@@ -1,0 +1,50 @@
+@import url('https://fonts.googleapis.com/css2?family=Arimo:ital,wght@0,400..700;1,400..700&display=swap');
+
+* {
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    color: #333;
+    font-family: "Arimo", sans-serif;
+}
+
+header {
+    padding: 20px;
+    text-align: center;
+}
+
+header a {
+    margin: 10px;
+}
+
+h1 {
+    text-align: center;
+    margin: 20px 0;
+}
+
+/* TODO: Equipo Front HTML - anadir estilos aqui */
+form {
+    width: 400;
+    height: 800;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    align-items: center;
+    text-align: left;
+    padding: 10px 20px 30px 40px;
+    gap: 5px;
+}
+
+button {
+    margin: 2%;
+    background-color: #373838;
+    color: white;
+    padding: 5px 30px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
