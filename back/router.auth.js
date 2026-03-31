@@ -146,13 +146,13 @@ router.get("/me", authAPI, async(request,response) => {
     response.status(200).json({
       id:        results[0].id,
       email:     results[0].email,
-      createdat: results[0].createdat, 
+      createdAt: results[0].createdat, 
     });
   });
  
     // post /logout — borramos la cookie de sesión
     router.post("/logout", (request,response) =>{
-      response.clearCookie("accesToken",{
+      response.clearCookie("accessToken",{
         httponly: true,     // seguridad: los scripts de js maliciosos no pueden leerla
         secure:   false,    // en producción sería 'true' para exigir https
         samesite: "strict", // seguridad: evita que la cookie se envíe desde otros sitios 
