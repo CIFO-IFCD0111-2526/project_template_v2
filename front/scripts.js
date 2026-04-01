@@ -51,7 +51,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                 password: Joi.string().min(6).required()
             });
 
-            const email = e.target.email.emailSignIn.value
+            const email = e.target.emailSignIn.value
             const password = e.target.passwordSignIn.value
 
             const { error } = UserSchema.validate({ email, password })
