@@ -1,5 +1,5 @@
-const forms = document.querySelectorAll("form")
-const signInRES = document.querySelector("signInRES")
+const forms = document.querySelectorAll("form");
+const signInRES = document.querySelector("signInRES");
 
 const UserSchema = Joi.object({
         email: Joi.string().email().required(),
@@ -7,16 +7,17 @@ const UserSchema = Joi.object({
 });
 
 forms[0].addEventListener("submit", async e => {
+    signInRES.textContent = "";
     e.preventDefault();    
 
-    const email = e.target.email.emailSignIn.value
-    const password = e.target.passwordSignIn.value
+    const email = e.target.email.emailSignIn.value;
+    const password = e.target.passwordSignIn.value;
 
-    const { error } = UserSchema.validate({ email, password })
+    const { error } = UserSchema.validate({ email, password });
 
     if (error) {
-        signInRES.textContent = "Email inválido ou password menor que 6 caracteres."
-        return
+        signInRES.textContent = "Email inválido o password menor que 6 caracteres.";
+        return;
     }
 
     try {
@@ -39,12 +40,12 @@ forms[0].addEventListener("submit", async e => {
             }
 
             setTimeout(() => {
-                window.location.href = "/private"
+                window.location.href = "/private";
             }, 3000);
         }
 
     } catch (error) {
-        signInRES.textContent = "Error de connectión con el servidor."
+        signInRES.textContent = "Error de connexión con el servidor.";
     }
 })
 
@@ -54,9 +55,8 @@ const signUpRES = document.querySelector("#signUpRES");
 
 // registro
 forms[1].addEventListener("submit", async e => {
-    // console.log("hola");
+    signUpRES.textContent = "";
     e.preventDefault();
-    // console.log("hola");
     const datos = {
         email: e.target.emailSignUp.value,
         password: e.target.passwordSignUp.value,
@@ -67,7 +67,7 @@ forms[1].addEventListener("submit", async e => {
         return;
     } else {
         // Validamos que las contraseñas coinciden
-        if (datos.password !== e.target.passwordSignUpR.value) {
+        if (e.target.passwordSignUp.value !== e.target.passwordSignUpR.value) {
             signUpRES.textContent = "Las contraseñas no coinciden";
             return;
         }
@@ -75,6 +75,7 @@ forms[1].addEventListener("submit", async e => {
         const { error, value } = UserSchema.validate(datos, { abortEarly: false });
         if (error) {
             console.log(error.details);
+            signUpRES.textContent = error[0].details.message;
             return;
         }
         // enviar datos a Back
@@ -95,7 +96,7 @@ forms[1].addEventListener("submit", async e => {
                 signUpRES.textContent = resJSON.message;
             }
         } catch (error) {
-            signUpRES.textContent = "Error de conexion con el servidor";
+            signUpRES.textContent = "Error de conexión con el servidor";
         }
     }
 });
