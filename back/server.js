@@ -28,9 +28,6 @@ server.get("/", (req, res) => {
 // server.get("/private", authPage, (req, res) => {
 //     res.sendFile(path.join(__dirname, "../front", "private.html"));
 // });
-// Ruta: Página de tareas (Privada)
-// GET /private -> Sirve front/private.html
-router.get()
 
 const PORT = process.env.PORT || 3000;
 server.listen(PORT, () => console.log("Servidor activo en http://localhost:" + PORT));
