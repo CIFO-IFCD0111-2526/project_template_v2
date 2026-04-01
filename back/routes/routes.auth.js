@@ -1,12 +1,12 @@
 const express = require("express");
 const router = new express.Router();
-const pool = require("./mysql_conn.js");
+const pool = require("../mysql_conn.js");
 
 const joi = require("joi");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
-const { authAPI } = require("./auth.middleware.js");
+const { authAPI } = require("../auth.middleware.js");
 
 module.exports = router;
 
