@@ -41,7 +41,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         `;
 
         const forms = document.querySelectorAll("form")
-        const signInRES = document.querySelector("signInRES")
+        const signInRES = document.querySelector("#signInRES")
 
         forms[0].addEventListener("submit", async e => {
             e.preventDefault();
