@@ -24,9 +24,7 @@ h1 {
     margin: 20px 0;
 }
 
-<<<<<<< feat/signup-form
-/* TODO: Equipo Front HTML - anadir estilos aqui */
-=======
+
 /* Parte del css que estructura la pàgina  "mi cuenta" y private */
 /* NAV */
 #nav {
@@ -99,7 +97,7 @@ h1 {
     background: #c62828;
 }
 
->>>>>>> develop
+
 form {
     width: 400;
     height: 800;
@@ -121,7 +119,7 @@ button {
     border-radius: 8px;
     font-size: 16px;
     cursor: pointer;
-<<<<<<< feat/signup-form
+
     /*transition: background 0.3s;*/
 }
 button:hover {
@@ -133,8 +131,4 @@ footer {
     background-color: #f1f1f1;
     margin-top: 20px;
 }
-=======
-    transition: background 0.3s;
-}
 
->>>>>>> develop
