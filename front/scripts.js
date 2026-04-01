@@ -1,10 +1,9 @@
-
 const forms = document.querySelectorAll("form")
 const signInRES = document.querySelector("signInRES")
 
-const UserSchema = joi.object({
-    email: joi.string().email().required(),
-    password: joi.string().min(6).required()
+const UserSchema = Joi.object({
+    email: Joi.string().email().required(),
+    password: Joi.string().min(6).required()
 });
 
 forms[0].addEventListener("submit", async e => {
