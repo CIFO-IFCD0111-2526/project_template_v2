@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tareas</title>
+    <link rel="stylesheet" href="./css/styles.css">
+</head>
+
+<body>
+
+    <nav id="nav">
+        <a href="private.html">Private</a>
+        <a href="account.html">Mi Cuenta</a>
+        <button id="logoutBtn">Logout</button>
+    </nav>
+
+    <main class="container">
+
+        <!-- Mensaje privado -->
+        <p id="privateMessage"></p>
+
+        <!-- Lista de tareas -->
+        <div id="tareasList"></div>
+
+        <!-- Formulario nueva tarea -->
+        <form id="nuevaTarea">
+            <input type="text" id="tituloTarea" placeholder="Título de la tarea" required>
+            <button type="submit">Crear tarea</button>
+        </form>
+
+    </main>
+    <!-- Script de prova per validar la funcionalitat del html
+     i el css. Descomentar per provar els dissenys-->
+    <!-- <script>
+        document.getElementById("privateMessage").textContent = "Bienvenido a tu zona privada";
+
+        document.getElementById("tareasList").innerHTML = `
+  <div class="tarea">
+    <span>Ejemplo de tarea</span>
+    <button>Eliminar</button>
+  </div>
+`;
+    </script> -->
+
+
+</body>
+
+</html>
