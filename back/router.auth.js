@@ -125,7 +125,7 @@ router.post("/signup", async (request, response) => {
 });
 //get /me — nos devuelve datos del usuario logueado
 router.get("/me", authAPI, async(request,response) => {
-    const{email} = request.user;
+    const{email} = request.data;
     //consultamos a la BD
     let results = [];
     try{
