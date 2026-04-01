@@ -6,8 +6,6 @@ const UserSchema = Joi.object({
         password: Joi.string().min(6).required()
 });
 
-console.log(forms[1]);
-
 forms[0].addEventListener("submit", async e => {
     e.preventDefault();    
 
@@ -56,9 +54,9 @@ const signUpRES = document.querySelector("#signUpRES");
 
 // registro
 forms[1].addEventListener("submit", async e => {
-    console.log("hola");
+    // console.log("hola");
     e.preventDefault();
-    console.log("hola");
+    // console.log("hola");
     const datos = {
         email: e.target.emailSignUp.value,
         password: e.target.passwordSignUp.value,
