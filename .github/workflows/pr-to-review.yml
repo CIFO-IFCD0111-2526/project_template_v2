@@ -19,50 +19,67 @@ jobs:
 
             const pr = context.payload.pull_request;
             const body = pr.body || "";
+            const prNumber = pr.number;
 
-            // Find issue references like "closes #1", "fixes #2", "resolves #3", "#4"
-            const issueNumbers = [...new Set(
+            // 1. Issues from PR body (#1, closes #2, fixes #3, etc.)
+            const bodyIssues = [...new Set(
               [...body.matchAll(/(?:closes|fixes|resolves|close|fix|resolve)?\s*#(\d+)/gi)]
                 .map(m => parseInt(m[1]))
             )];
 
+            // 2. Issues linked via GitHub sidebar (closing references)
+            const timeline = await github.graphql(`
+              query($owner: String!, $repo: String!, $pr: Int!) {
+                repository(owner: $owner, name: $repo) {
+                  pullRequest(number: $pr) {
+                    closingIssuesReferences(first: 20) {
+                      nodes {
+                        number
+                      }
+                    }
+                  }
+                }
+              }
+            `, {
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pr: prNumber,
+            });
+
+            const sidebarIssues = timeline.repository.pullRequest.closingIssuesReferences.nodes
+              .map(n => n.number);
+
+            // Combine both sources
+            const issueNumbers = [...new Set([...bodyIssues, ...sidebarIssues])];
+
             if (issueNumbers.length === 0) {
-              console.log("No linked issues found in PR body");
+              console.log("No linked issues found");
               return;
             }
 
-            for (const issueNumber of issueNumbers) {
-              console.log(`Processing issue #${issueNumber}`);
-
-              // Get issue node ID
-              const issue = await github.rest.issues.get({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                issue_number: issueNumber,
-              });
-
-              const contentId = issue.data.node_id;
-
-              // Find the item in the project
-              const result = await github.graphql(`
-                query($projectId: ID!, $cursor: String) {
-                  node(id: $projectId) {
-                    ... on ProjectV2 {
-                      items(first: 100, after: $cursor) {
-                        nodes {
-                          id
-                          content {
-                            ... on Issue {
-                              id
-                              number
-                            }
+            // Get project items
+            const result = await github.graphql(`
+              query($projectId: ID!) {
+                node(id: $projectId) {
+                  ... on ProjectV2 {
+                    items(first: 100) {
+                      nodes {
+                        id
+                        content {
+                          ... on Issue {
+                            id
+                            number
                           }
                         }
                       }
                     }
                   }
                 }
-              `, { projectId });
+              }
+            `, { projectId });
+
+            for (const issueNumber of issueNumbers) {
+              console.log(`Processing issue #${issueNumber}`);
 
               const item = result.node.items.nodes.find(
                 n => n.content && n.content.number === issueNumber
@@ -73,7 +90,6 @@ jobs:
                 continue;
               }
 
-              // Update status to In Review
               await github.graphql(`
                 mutation($projectId: ID!, $itemId: ID!, $fieldId: ID!, $optionId: String!) {
                   updateProjectV2ItemFieldValue(input: {

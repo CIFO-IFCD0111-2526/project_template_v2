@@ -82,7 +82,7 @@ router.post("/signup", async (request, response) => {
         try {
             await UserSchema.validateAsync({ email, password });
         } catch (error) {
-            return res.status(400).json({ error: error.details[0].message });
+            return response.status(400).json({ error: error.details[0].message });
         }
         // comprobado con joi que cumplen condiciones------------------------------------// 
         // Query a DB para ver si el usuario existe
@@ -122,4 +122,40 @@ router.post("/signup", async (request, response) => {
             response.status(400).json({ error: "El usuario ya existe." });
         }
     }
+});
+//get /me — nos devuelve datos del usuario logueado
+router.get("/me", authAPI, async(request,response) => {
+    const{email} = request.user;
+    //consultamos a la BD
+    let results = [];
+    try{
+      // usamos 'await' porque hablar con la base de datos lleva tiempo (es asíncrono)
+      [results] = await pool.query(
+        `select id, email, createdAt from \`users\`
+        where email = ?`,// "?" prevenimos SQL injection
+        [email]);
+    }catch(err){
+      console.log(err.message);
+      return response.status(500).json({error:err.message});
+    }
+    //validación de seguridad extra
+    if(results.length === 0){
+      return response.status(404).json({ error: "Usuario no encontrado"});
+    }
+    //respuesta final: enviamos solo lo necesario al front-end.
+    response.status(200).json({
+      id:        results[0].id,
+      email:     results[0].email,
+      createdAt: results[0].createdat, 
+    });
+  });
+ 
+    // post /logout — borramos la cookie de sesión
+    router.post("/logout", (request,response) =>{
+      response.clearCookie("accessToken",{
+        httpOnly: true,     // seguridad: los scripts de js maliciosos no pueden leerla
+        secure:   false,    // en producción sería 'true' para exigir https
+        sameSite: "strict", // seguridad: evita que la cookie se envíe desde otros sitios 
+      });
+      response.status(200).json({ message: "sesión cerrada correctamente" });
 });
