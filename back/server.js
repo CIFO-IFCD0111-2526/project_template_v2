@@ -32,8 +32,8 @@ server.get("/me", authPage, (req, res) => {
  });
 
  // Lo mismo para la pagina privada, solo se puede acceder si el token es valido, sino se redirige a login.
- server.get("/private", authPage, (req, res) => {
-     res.sendFile(path.join(__dirname, "../front", "private.html"));
+ server.get("/todos", authPage, (req, res) => {
+     res.sendFile(path.join(__dirname, "../front", "todos.html"));
  });
  
 
