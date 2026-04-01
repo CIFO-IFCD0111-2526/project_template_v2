@@ -11,39 +11,104 @@ body {
 }
 
 header {
-    padding: 20px;
+    max-width: 900px;
+    margin: 10px auto;
     text-align: center;
 }
 
-header a {
-    margin: 10px;
-}
-
-h1 {
+header h1 {
+    padding-top: 20px;
+    color: rgb(0, 0, 0);
+    margin-bottom: 40px;
     text-align: center;
-    margin: 20px 0;
 }
 
+form h2 {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-size: 23px;
+    color: rgb(0, 0, 0);
+}
 
-/* Parte del css que estructura la pàgina  "mi cuenta" y private */
-/* NAV */
 #nav {
     display: flex;
-    gap: 1rem;
-    padding: 1rem;
-    background: #333;
-    color: white;
+    gap: 10px;
+    padding: 14px 20px;
+    background: #535353;
+    border-radius: 7px;
     align-items: center;
 }
 
 #nav a {
-    color: white;
+    color: rgb(255, 255, 255);
     text-decoration: none;
+    font-weight: 700;
+}
+
+.container-forms {
+    gap: 20px;
+    display: flex;
+    margin: 0px auto;
+    max-width: 700px;
+}
+
+.lado-esquerdo, .lado-direito {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgb(155, 155, 155);
+    border-radius: 10px;
+}
+
+.lado-direito {
+    background-color: rgb(219, 219, 219);
+}
+
+.lado-esquerdo {
+    background-color: rgb(241, 241, 241);
+}
+
+form {
+    padding: 10px 0px 25px 0px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.input {
+    width: 75%;
+    margin-bottom: 10px;
+    padding: 7px;
+    border-radius: 5px;
+    border: 1px solid rgb(0, 0, 0);
+}
+
+label {
+    width: 75%;
+    margin-bottom: 5px;
+    color: rgb(0, 0, 0);
+}
+
+button.submit {
+    background-color: #414141;
+    color: white;
+    padding: 10px 30px;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: 15px;
+}
+
+button.submit:hover {
+    background-color: #585858;
 }
 
 #logoutBtn {
-    margin-left: auto;
     padding: 0.4rem 0.8rem;
+    margin-left: auto;
     cursor: pointer;
 }
 
@@ -54,7 +119,6 @@ h1 {
     padding: 1rem;
 }
 
-
 /* CARD */
 .card {
     background: #fff;
@@ -63,7 +127,6 @@ h1 {
     box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
 
-/* Modificamos y damos estilo al contenedor de tareas */
 #tareasList {
     margin-top: 1.5rem;
     display: flex;
@@ -98,19 +161,6 @@ h1 {
     background: #c62828;
 }
 
-
-form {
-    width: 400;
-    height: 800;
-    display: flex;
-    justify-content: space-between;
-    flex-direction: column;
-    align-items: center;
-    text-align: left;
-    padding: 10px 20px 30px 40px;
-    gap: 5px;
-}
-
 button {
     margin: 2%;
     background-color: #373838;
@@ -120,12 +170,13 @@ button {
     border-radius: 8px;
     font-size: 16px;
     cursor: pointer;
-
-    /*transition: background 0.3s;*/
+    transition: background 0.3s;
 }
+
 button:hover {
     background-color: #555;
 }
+
 footer {
     text-align: center;
     padding: 20px;
@@ -139,9 +190,8 @@ main.container-404 {
     min-height: 80vh;
     display: flex;
     flex-direction: column;
-    align-items: center; /* horizontal */
+    align-items: center;
     justify-content: center;
-    text-align: center;
     padding: 3rem 2rem;
     gap: 1rem;
 }
@@ -149,8 +199,6 @@ main.container-404 {
 .error-page {
     background: #ffffff;
 }
-
-/*Página 404*/
 
 .container-404 h1 {
     font-size: clamp(5rem, 18vw, 9rem);
