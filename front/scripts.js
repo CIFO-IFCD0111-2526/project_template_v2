@@ -7,7 +7,7 @@ const UserSchema = Joi.object({
 });
 
 forms[0].addEventListener("submit", async (e) => {
-  // signInRES.textContent = "";
+  signInRES.textContent = "";
   e.preventDefault();
   
   const datos = {
@@ -20,7 +20,7 @@ forms[0].addEventListener("submit", async (e) => {
     return;
   } else {
     // Validación Joi
-    const { error } = UserSchema.validate(datos, { email, password });
+    const { error } = UserSchema.validate(datos, { abortEarly: false });
     console.log(error);
     if (error) {
       // signInRES.textContent = "Email inválido o password menor que 6 caracteres.";
