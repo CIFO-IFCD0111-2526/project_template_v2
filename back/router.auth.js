@@ -131,7 +131,7 @@ router.get("/me", authAPI, async(request,response) => {
     try{
       // usamos 'await' porque hablar con la base de datos lleva tiempo (es asíncrono)
       [results] = await pool.query(
-        `select id, email, createdat from \`users\`
+        `select id, email, createdAt from \`users\`
         where email = ?`,// "?" prevenimos SQL injection
         [email]);
     }catch(err){
@@ -153,9 +153,9 @@ router.get("/me", authAPI, async(request,response) => {
     // post /logout — borramos la cookie de sesión
     router.post("/logout", (request,response) =>{
       response.clearCookie("accessToken",{
-        httponly: true,     // seguridad: los scripts de js maliciosos no pueden leerla
+        httpOnly: true,     // seguridad: los scripts de js maliciosos no pueden leerla
         secure:   false,    // en producción sería 'true' para exigir https
-        samesite: "strict", // seguridad: evita que la cookie se envíe desde otros sitios 
+        sameSite: "strict", // seguridad: evita que la cookie se envíe desde otros sitios 
       });
       response.status(200).json({ message: "sesión cerrada correctamente" });
 });
