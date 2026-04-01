@@ -1,13 +1,15 @@
 const forms = document.querySelectorAll("form")
 const signInRES = document.querySelector("signInRES")
 
-forms[0].addEventListener("submit", async e => {
-    e.preventDefault();
-
-    const UserSchema = Joi.object({
+const UserSchema = Joi.object({
         email: Joi.string().email().required(),
         password: Joi.string().min(6).required()
-    });
+});
+
+console.log(forms[1]);
+
+forms[0].addEventListener("submit", async e => {
+    e.preventDefault();    
 
     const email = e.target.email.emailSignIn.value
     const password = e.target.passwordSignIn.value
@@ -54,14 +56,9 @@ const signUpRES = document.querySelector("#signUpRES");
 
 // registro
 forms[1].addEventListener("submit", async e => {
+    console.log("hola");
     e.preventDefault();
-
-    // validación
-    const UserSchema = Joi.object({
-        email: Joi.string().email().required(),
-        password: Joi.string().min(6).required(),
-    });
-
+    console.log("hola");
     const datos = {
         email: e.target.emailSignUp.value,
         password: e.target.passwordSignUp.value,
@@ -71,6 +68,11 @@ forms[1].addEventListener("submit", async e => {
         signUpRES.textContent = "Los datos enviados están en formato incorrecto";
         return;
     } else {
+        // Validamos que las contraseñas coinciden
+        if (datos.password !== e.target.passwordSignUpR.value) {
+            signUpRES.textContent = "Las contraseñas no coinciden";
+            return;
+        }
         // Validación con Joi
         const { error, value } = UserSchema.validate(datos, { abortEarly: false });
         if (error) {
