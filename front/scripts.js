@@ -8,6 +8,7 @@ const UserSchema = Joi.object({
 
 forms[0].addEventListener("submit", async (e) => {
   signInRES.textContent = "";
+  signUpRES.textContent = "";
   e.preventDefault();
   
   const datos = {
@@ -16,19 +17,19 @@ forms[0].addEventListener("submit", async (e) => {
   };
 
   if (!e.target.emailSignIn.value || !e.target.passwordSignIn.value) {
-    signInRES.textContent = "Los datos enviados están en formato incorrecto";
+    signInRES.textContent = "· Debes rellenar los campos<br/>";
     return;
   } else {
     // Validación Joi
     const { error } = UserSchema.validate(datos, { abortEarly: false });
     //console.log(error.details);
-    if (error.details) {
+    if (error) {
       for (err of error.details) {
         if (err.path == 'email') {
-          signInRES.innerHTML += `· El email es incorrecto<br/>`;
+          signInRES.innerHTML += `· El email es incorrecto.<br/>`;
           //signInRES.innerHTML += `${err.message}<br/>`;
         } else {
-          signInRES.innerHTML += `· La contraseña debe tener un mínimo de 6 carácteres<br/>`;
+          signInRES.innerHTML += `· La contraseña debe tener un mínimo de 6 carácteres.<br/>`;
         }
       }
       return;
@@ -48,16 +49,18 @@ forms[0].addEventListener("submit", async (e) => {
       } else {
         signInRES.textContent = resJSON.message;
 
+        // Comentamos el almacenamiento del token en localStorage al no ser necesario en el formulario web de login (se guarda en las Cookies).
+        /*
         if (resJSON.accessToken) {
           localStorage.setItem("accessToken", resJSON.accessToken);
-        }
+        } */
 
         setTimeout(() => {
           window.location.href = "/private";
         }, 3000);
       }
     } catch (error) {
-      signInRES.textContent = "Error de connexión con el servidor.";
+      signInRES.textContent = "· Error de connexión con el servidor.";
     }
   }
 });
@@ -68,6 +71,7 @@ const signUpRES = document.querySelector("#signUpRES");
 
 // registro
 forms[1].addEventListener("submit", async (e) => {
+  signInRES.textContent = "";
   signUpRES.textContent = "";
   e.preventDefault();
   const datos = {
@@ -76,23 +80,23 @@ forms[1].addEventListener("submit", async (e) => {
   };
 
   if (!e.target.emailSignUp.value || !e.target.passwordSignUp.value) {
-    signUpRES.textContent = "Los datos enviados están en formato incorrecto";
+    signUpRES.textContent = "· Debes rellenar los campos<br/>";
     return;
   } else {
     // Validamos que las contraseñas coinciden
     if (e.target.passwordSignUp.value !== e.target.passwordSignUpR.value) {
-      signUpRES.innerHTML += "· Las contraseñas no coinciden<br/>";
+      signUpRES.innerHTML += "· Las contraseñas no coinciden.<br/>";
       //return;
     }
     // Validación con Joi
     const { error, value } = UserSchema.validate(datos, { abortEarly: false });
-    if (error.details) {
+    if (error) {
       for (err of error.details) {
         if (err.path == 'email') {
           signUpRES.innerHTML += `· El email es incorrecto<br/>`;
           //signInRES.innerHTML += `${err.message}<br/>`;
         } else {
-          signUpRES.innerHTML += `· La contraseña debe tener un mínimo de 6 carácteres<br/>`;
+          signUpRES.innerHTML += `· La contraseña debe tener un mínimo de 6 carácteres.<br/>`;
         }
       }
       return;
@@ -115,7 +119,7 @@ forms[1].addEventListener("submit", async (e) => {
         signUpRES.textContent = resJSON.message;
       }
     } catch (error) {
-      signUpRES.textContent = "Error de conexión con el servidor";
+      signUpRES.textContent = "· Error de conexión con el servidor";
     }
   }
 });
