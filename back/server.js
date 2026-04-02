@@ -7,7 +7,7 @@ const server = new express();
 const { authPage } = require("./auth.middleware.js");
 
 require("./mysql_conn.js");
-const routes = require("./router.auth.js");
+const routes = require("./routes/user.routes.js");
 
 server.use(cookieParser());
 server.use(express.json());
