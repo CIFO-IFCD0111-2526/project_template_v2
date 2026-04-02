@@ -208,31 +208,38 @@ Si no sabes resolverlo, pedir ayuda al integrador o al formador.
 
 ```
 project_template_v2/
-├── front/                      # FRONTEND (equipos HTML y JS)
-│   ├── index.html              # Pagina principal (login + registro)
-│   ├── styles.css              # Estilos CSS
-│   └── scripts.js              # Logica JavaScript
+├── front/                              # FRONTEND (equipos HTML y JS)
+│   ├── index.html                      # Pagina principal (login + registro)
+│   ├── me.html                         # Pagina mi cuenta (privada)
+│   ├── todos.html                      # Pagina tareas (privada)
+│   ├── 404.html                        # Pagina error 404
+│   ├── css/
+│   │   └── styles.css                  # Estilos CSS
+│   └── scripts.js                      # Logica JavaScript
 │
-├── back/                       # BACKEND (equipos Express y SQL)
-│   ├── server.js               # Servidor Express (sirve HTML + API)
-│   ├── routes.js               # Endpoints de la API
-│   ├── auth.middleware.js       # Middleware de autenticacion JWT
-│   ├── mysql_conn.js           # Conexion a MySQL
-│   ├── database.sql            # Schema de la base de datos
-│   ├── .env.example            # Variables de entorno (ejemplo)
-│   └── package.json            # Dependencias
+├── back/                               # BACKEND (equipos Express y SQL)
+│   ├── server.js                       # Servidor Express (solo carga rutas y middleware)
+│   ├── routes/
+│   │   ├── user.routes.js              # Endpoints API auth (signup, signin, me, logout)
+│   │   ├── pages.routes.js             # Rutas de paginas (/, /me, /todos, 404)
+│   │   └── todos.routes.js             # Endpoints API CRUD tareas
+│   ├── auth.middleware.js              # Middleware de autenticacion JWT
+│   ├── mysql_conn.js                   # Conexion a MySQL
+│   ├── database.sql                    # Schema de la base de datos
+│   ├── .env.example                    # Variables de entorno (ejemplo)
+│   └── package.json                    # Dependencias
 │
-├── README.md                   # Informacion del proyecto
-└── .gitignore                  # Archivos que git ignora
+├── README.md                           # Informacion del proyecto
+└── .gitignore                          # Archivos que git ignora
 ```
 
 ### Que archivos toca cada equipo
 
 | Equipo | Archivos |
 |--------|----------|
-| Front HTML/CSS | `front/index.html`, `front/private.html`, `front/account.html`, `front/styles.css` |
+| Front HTML/CSS | `front/index.html`, `front/me.html`, `front/todos.html`, `front/404.html`, `front/css/styles.css` |
 | Front JavaScript | `front/scripts.js` |
-| Back Express | `back/server.js`, `back/routes.js`, `back/auth.middleware.js` |
+| Back Express | `back/server.js`, `back/routes/user.routes.js`, `back/routes/pages.routes.js`, `back/routes/todos.routes.js`, `back/auth.middleware.js` |
 | Back SQL | `back/database.sql`, `back/mysql_conn.js` |
 
 ---
