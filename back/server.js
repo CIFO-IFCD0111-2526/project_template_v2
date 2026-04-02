@@ -9,6 +9,9 @@ const { authPage } = require("./auth.middleware.js");
 require("./mysql_conn.js");
 const userRoutes = require("./routes/user.routes.js");
 
+const pageRoutes = require("./routes/pages.routes.js");
+server.use("/", pageRoutes);
+
 server.use(cookieParser());
 server.use(express.json());
 
@@ -17,20 +20,6 @@ server.use(express.static(path.join(__dirname, "../front")));
 
 // API
 server.use("/api/v1", userRoutes);
-
-// Paginas
-server.get("/", (req, res) => {
-    res.sendFile(path.join(__dirname, "../front", "index.html"));
-});
-
-// Paginas privadas protegidas con authPage
-server.get("/me", authPage, (req, res) => {
-    res.sendFile(path.join(__dirname, "../front", "me.html"));
-});
-
-server.get("/todos", authPage, (req, res) => {
-    res.sendFile(path.join(__dirname, "../front", "todos.html"));
-});
 
 // Middleware 404 - debe ir al final de todas las rutas
 server.use((req, res) => {
