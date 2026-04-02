@@ -21,12 +21,16 @@ forms[0].addEventListener("submit", async (e) => {
   } else {
     // Validación Joi
     const { error } = UserSchema.validate(datos, { abortEarly: false });
-    console.log(error);
-    if (error) {
-      // signInRES.textContent = "Email inválido o password menor que 6 caracteres.";
-      error.forEach((e) => {
-        signInRES.textContent += e.message;
-      });
+    //console.log(error.details);
+    if (error.details) {
+      for (err of error.details) {
+        if (err.path == 'email') {
+          signInRES.innerHTML += `· El email es incorrecto<br/>`;
+          //signInRES.innerHTML += `${err.message}<br/>`;
+        } else {
+          signInRES.innerHTML += `· La contraseña debe tener un mínimo de 6 carácteres<br/>`;
+        }
+      }
       return;
     }
 
@@ -77,14 +81,20 @@ forms[1].addEventListener("submit", async (e) => {
   } else {
     // Validamos que las contraseñas coinciden
     if (e.target.passwordSignUp.value !== e.target.passwordSignUpR.value) {
-      signUpRES.textContent = "Las contraseñas no coinciden";
-      return;
+      signUpRES.innerHTML += "· Las contraseñas no coinciden<br/>";
+      //return;
     }
     // Validación con Joi
     const { error, value } = UserSchema.validate(datos, { abortEarly: false });
-    if (error) {
-      console.log(error.details);
-      signUpRES.textContent = error[0].details.message;
+    if (error.details) {
+      for (err of error.details) {
+        if (err.path == 'email') {
+          signUpRES.innerHTML += `· El email es incorrecto<br/>`;
+          //signInRES.innerHTML += `${err.message}<br/>`;
+        } else {
+          signUpRES.innerHTML += `· La contraseña debe tener un mínimo de 6 carácteres<br/>`;
+        }
+      }
       return;
     }
     // enviar datos a Back
