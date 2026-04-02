@@ -9,7 +9,6 @@ const jwt = require("jsonwebtoken");
 const { authAPI } = require("../auth.middleware.js");
 
 
-
 // schema JOI para comprovar que los datos cumplen ------ //
 
 const UserSchema = joi.object({
