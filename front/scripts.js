@@ -45,6 +45,12 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         forms[0].addEventListener("submit", async e => {
             e.preventDefault();
+             const btn = e.target.querySelector("button");  // Obtener el botón del formulario --> necesario para deshabilitarlo durante la carga
+            signInRES.textContent = "Enviando...";
+            signInRES.className = " ";
+            btn.disabled = true;                        // Deshabilitar el botón para evitar múltiples envíos
+
+
 
             const UserSchema = Joi.object({
                 email: Joi.string().email().required(),
@@ -72,9 +78,11 @@ document.addEventListener("DOMContentLoaded", async () => {
 
                 if (resJSON.error) {
                     signInRES.textContent = resJSON.error;
+                    signInRES.className = "msg_error";       // lanzamos mensaje de error
 
                 } else {
                     signInRES.textContent = resJSON.message;
+                    signInRES.className = "msg_success";    // lanzamos mensaje de éxito si todo va bien.
 
                     if (resJSON.accessToken) {
                         localStorage.setItem("accessToken", resJSON.accessToken);
@@ -87,16 +95,23 @@ document.addEventListener("DOMContentLoaded", async () => {
 
             } catch (error) {
                 signInRES.textContent = "Error de conexion con el servidor";
+                 signInRES.className = "msg_error";       // lanzamos mensaje de error si falla la conexión con el servidor  
+            } finally {
+                btn.disabled = false;                   // Volver a habilitar el botón después de la respuesta
             }
-        })
+        });
 
         const signUpRES = document.querySelector("#signUpRES");
 
         // const privateLink = document.querySelectorAll("a");
 
-        // registro
+        // formulario de signup
         forms[1].addEventListener("submit", async e => {
             e.preventDefault();
+             const btn = e.target.querySelector("button");  // Obtener el botón del formulario --> necesario para deshabilitarlo durante la carga
+            signUpRES.textContent = "Enviando...";
+            signUpRES.className = " ";                    // Limpiar clases de mensaje anteriores
+            btn.disabled = true;
 
             // validación
             const UserSchema = Joi.object({
@@ -133,11 +148,15 @@ document.addEventListener("DOMContentLoaded", async () => {
 
                     if (resJSON.error) {
                         signUpRES.textContent = resJSON.error;
+                        signUpRES.className = "msg_error";       // lanzamos mensaje de error    
                     } else {
                         signUpRES.textContent = resJSON.message;
+                        signUpRES.className = "msg_success";    // lanzamos mensaje de éxito si todo va bien.
                     }
+
                 } catch (error) {
                     signUpRES.textContent = "Error de conexion con el servidor";
+                    signUpRES.className = "msg_error";       // lanzamos mensaje de error si falla la conexión con el servidor
                 }
 
             }
