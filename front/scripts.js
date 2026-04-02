@@ -62,7 +62,7 @@ forms[0].addEventListener("submit", async (e) => {
   };
 
   if (!e.target.emailSignIn.value || !e.target.passwordSignIn.value) {
-    signInRES.textContent = "· Debes rellenar los campos<br/>";
+    signInRES.innerHTML = "· Debes rellenar los campos<br/>";
     return;
   } else {
     // Validación Joi
@@ -121,7 +121,7 @@ forms[1].addEventListener("submit", async (e) => {
   };
 
   if (!e.target.emailSignUp.value || !e.target.passwordSignUp.value) {
-    signUpRES.textContent = "· Debes rellenar los campos<br/>";
+    signUpRES.innerHTML = "· Debes rellenar los campos<br/>";
     return;
   } else {
     // Validamos que las contraseñas coinciden
