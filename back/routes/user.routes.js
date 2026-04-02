@@ -1,14 +1,14 @@
 const express = require("express");
 const router = new express.Router();
-const pool = require("./mysql_conn.js");
+const pool = require("../mysql_conn.js");
 
 const joi = require("joi");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
-const { authAPI } = require("./auth.middleware.js");
+const { authAPI } = require("../auth.middleware.js");
 
-module.exports = router;
+
 
 // schema JOI para comprovar que los datos cumplen ------ //
 
@@ -101,13 +101,12 @@ router.post("/signup", async (request, response) => {
     if (userExists.length === 0) {
       console.log("el usuario no existe! Procedemos a crearlo");
       // Si el usuario no existe, lo creamos
-
       // -------------------------   encriptado de los datos de usuario , de momento el email no hace falta
       // ----------------------------- password = password encriptado | encriptem abans de enviar a la BBDD 
       const salt = bcrypt.genSaltSync(10);
       password = bcrypt.hashSync(password, salt);
-      console.log("usuario guardado con el password encyptado: ", password, " de longitud : ", password.length)
-      // ---------------------------------------------------------encriptado de los datos de usuario -- END //
+      // console.log("usuario guardado con el password encyptado: ", password, " de longitud : ", password.length)
+      // ----------------------------------------------------------------------encriptado de los datos de usuario -- END //
       try {
         await pool.query(
           `INSERT INTO users (email, password)
@@ -159,3 +158,6 @@ router.post("/logout", (request, response) => {
   });
   response.status(200).json({ message: "sesión cerrada correctamente" });
 });
+
+
+module.exports = router;
