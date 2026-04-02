@@ -6,7 +6,7 @@ const joi = require("joi");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
-const { authAPI } = require("..auth.middleware.js");
+const { authAPI } = require("../auth.middleware.js");
 
 
 
