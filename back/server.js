@@ -7,7 +7,10 @@ const server = new express();
 const { authPage } = require("./auth.middleware.js");
 
 require("./mysql_conn.js");
-const routes = require("./routes.js");
+const userRoutes = require("./routes/user.routes.js");
+
+const pageRoutes = require("./routes/pages.routes.js");
+server.use("/", pageRoutes);
 
 server.use(cookieParser());
 server.use(express.json());
@@ -16,23 +19,13 @@ server.use(express.json());
 server.use(express.static(path.join(__dirname, "../front")));
 
 // API
-server.use("/api/v1", routes);
+server.use("/api/v1", userRoutes);
 
-// Paginas
-server.get("/", (req, res) => {
-    res.sendFile(path.join(__dirname, "../front", "index.html"));
+// Middleware 404 - debe ir al final de todas las rutas
+server.use((req, res) => {
+    res.status(404).sendFile(path.join(__dirname, "../front", "404.html"));
 });
-
-// TODO: Aqui van las rutas de paginas privadas protegidas con authPage
-// Ejemplo:
-// server.get("/private", authPage, (req, res) => {
-//     res.sendFile(path.join(__dirname, "../front", "private.html"));
-// });
 
 const PORT = process.env.PORT || 3000;
 server.listen(PORT, () => console.log("Servidor activo en http://localhost:" + PORT));
-
-// Ruta: Página de tareas (Privada)
-// GET /private -> Sirve front/private.html
-router.get()
 

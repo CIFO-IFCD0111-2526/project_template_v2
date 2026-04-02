@@ -1,5 +1,50 @@
 const forms = document.querySelectorAll("form");
 const signInRES = document.querySelector("#signInRES");
+const signUpRES = document.querySelector("#signUpRES");
+
+// ------------------------------------   Pendiente probar NAV
+document.addEventListener("DOMContentLoaded", async () => {
+  const nav = document.getElementById("nav");
+  if (!nav) return;
+
+  try {
+    const res = await fetch("/api/v1/me");
+
+    if (res.ok) {
+      nav.innerHTML = `
+                <a href="/todos">Tareas</a>
+                <a href="/me">Mi Cuenta</a>
+                <button id="logoutBtn">Cerrar Sesión</button>
+            `;
+
+      // const logoutBtn = document.getElementById("logoutBtn");
+
+      // logoutBtn.addEventListener("click", async () => {
+      //     try {
+      //         await fetch("/api/v1/logout", { method: "POST" });
+      //         localStorage.removeItem("accessToken");
+      //         window.location.href = "/";
+      //     } catch (error) {
+      //         console.error("Error al hacer logout", error);
+      //     }
+      // });
+    } else {
+      nav.innerHTML = `
+                <a href="/signup">SignUp</a>
+                <a href="/signin">SignIn</a>
+            `;
+    }
+  } catch (error) {
+    console.error("Error al verificar la sesión", error);
+    nav.innerHTML = `
+            <a href="/signup">SignUp</a>
+            <a href="/signin">SignIn</a>
+        `;
+  }
+});
+
+// ------------------------------------------------------------------------------------
+
 
 const UserSchema = Joi.object({
   email: Joi.string().email().required(),
@@ -10,7 +55,7 @@ forms[0].addEventListener("submit", async (e) => {
   signInRES.textContent = "";
   signUpRES.textContent = "";
   e.preventDefault();
-  
+
   const datos = {
     email: e.target.emailSignIn.value,
     password: e.target.passwordSignIn.value,
@@ -25,7 +70,7 @@ forms[0].addEventListener("submit", async (e) => {
     //console.log(error.details);
     if (error) {
       for (err of error.details) {
-        if (err.path == 'email') {
+        if (err.path == "email") {
           signInRES.innerHTML += `· El email es incorrecto.<br/>`;
           //signInRES.innerHTML += `${err.message}<br/>`;
         } else {
@@ -65,10 +110,6 @@ forms[0].addEventListener("submit", async (e) => {
   }
 });
 
-const signUpRES = document.querySelector("#signUpRES");
-
-// const privateLink = document.querySelectorAll("a");
-
 // registro
 forms[1].addEventListener("submit", async (e) => {
   signInRES.textContent = "";
@@ -92,7 +133,7 @@ forms[1].addEventListener("submit", async (e) => {
     const { error, value } = UserSchema.validate(datos, { abortEarly: false });
     if (error) {
       for (err of error.details) {
-        if (err.path == 'email') {
+        if (err.path == "email") {
           signUpRES.innerHTML += `· El email es incorrecto<br/>`;
           //signInRES.innerHTML += `${err.message}<br/>`;
         } else {

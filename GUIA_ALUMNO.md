@@ -11,6 +11,15 @@ git clone https://github.com/CIFO-IFCD0111-2526/project_template_v2.git
 cd project_template_v2
 ```
 
+### Configurar git (recomendado)
+
+```bash
+git config --global pull.rebase true
+```
+
+Esto hace que cada `git pull` recoloque tus commits encima de los cambios remotos,
+en vez de crear merge commits innecesarios. El historial queda limpio y lineal.
+
 ### Instalar dependencias del backend
 
 ```bash
@@ -63,7 +72,7 @@ git checkout -b feat/nombre-de-tu-tarea
 
 # 2b. Si la rama ya existe, ir a ella y actualizarla
 git checkout feat/nombre-de-tu-tarea
-git merge develop
+git rebase develop
 ```
 
 ### Mientras trabajas
@@ -146,9 +155,9 @@ Cuando te pidan que revises:
 
 ---
 
-## 6. Resolver conflictos de merge
+## 6. Resolver conflictos de merge/rebase
 
-Si al hacer `git merge develop` salen conflictos:
+Si al hacer `git rebase develop` salen conflictos:
 
 ```bash
 # Git te dice que archivos tienen conflicto
@@ -164,10 +173,32 @@ codigo de develop
 # Elegir que te quedas (o combinar ambos)
 # Borrar las lineas con <<<, === y >>>
 
-# Guardar y commitear
+# Si estabas haciendo rebase:
+git add archivo-con-conflicto.js
+git rebase --continue
+
+# Si estabas haciendo merge:
 git add archivo-con-conflicto.js
 git commit -m "fix: resolver conflicto en archivo.js"
 ```
+
+> **merge vs rebase - cual es la diferencia?**
+>
+> `git merge develop` trae los cambios de develop y crea un commit extra de merge.
+> El historial queda con bifurcaciones y "Merge branch 'develop' into..." por todos lados.
+>
+> `git rebase develop` recoloca tus commits encima de develop, como si hubieras
+> empezado a trabajar desde el ultimo commit de develop. El historial queda lineal y limpio.
+>
+> ```
+> merge:    A---B---C---M  (M = merge commit extra)
+>          /           /
+>    D---E---F---G----
+>
+> rebase:   D---E---F---G---A'---B'---C'  (tus commits recolocados encima, sin merge commit)
+> ```
+>
+> **Usamos rebase** porque el historial queda mas facil de leer y de revisar.
 
 Si no sabes resolverlo, pedir ayuda al integrador o al formador.
 
@@ -177,31 +208,38 @@ Si no sabes resolverlo, pedir ayuda al integrador o al formador.
 
 ```
 project_template_v2/
-├── front/                      # FRONTEND (equipos HTML y JS)
-│   ├── index.html              # Pagina principal (login + registro)
-│   ├── styles.css              # Estilos CSS
-│   └── scripts.js              # Logica JavaScript
+├── front/                              # FRONTEND (equipos HTML y JS)
+│   ├── index.html                      # Pagina principal (login + registro)
+│   ├── me.html                         # Pagina mi cuenta (privada)
+│   ├── todos.html                      # Pagina tareas (privada)
+│   ├── 404.html                        # Pagina error 404
+│   ├── css/
+│   │   └── styles.css                  # Estilos CSS
+│   └── scripts.js                      # Logica JavaScript
 │
-├── back/                       # BACKEND (equipos Express y SQL)
-│   ├── server.js               # Servidor Express (sirve HTML + API)
-│   ├── routes.js               # Endpoints de la API
-│   ├── auth.middleware.js       # Middleware de autenticacion JWT
-│   ├── mysql_conn.js           # Conexion a MySQL
-│   ├── database.sql            # Schema de la base de datos
-│   ├── .env.example            # Variables de entorno (ejemplo)
-│   └── package.json            # Dependencias
+├── back/                               # BACKEND (equipos Express y SQL)
+│   ├── server.js                       # Servidor Express (solo carga rutas y middleware)
+│   ├── routes/
+│   │   ├── user.routes.js              # Endpoints API auth (signup, signin, me, logout)
+│   │   ├── pages.routes.js             # Rutas de paginas (/, /me, /todos, 404)
+│   │   └── todos.routes.js             # Endpoints API CRUD tareas
+│   ├── auth.middleware.js              # Middleware de autenticacion JWT
+│   ├── mysql_conn.js                   # Conexion a MySQL
+│   ├── database.sql                    # Schema de la base de datos
+│   ├── .env.example                    # Variables de entorno (ejemplo)
+│   └── package.json                    # Dependencias
 │
-├── README.md                   # Informacion del proyecto
-└── .gitignore                  # Archivos que git ignora
+├── README.md                           # Informacion del proyecto
+└── .gitignore                          # Archivos que git ignora
 ```
 
 ### Que archivos toca cada equipo
 
 | Equipo | Archivos |
 |--------|----------|
-| Front HTML/CSS | `front/index.html`, `front/private.html`, `front/account.html`, `front/styles.css` |
+| Front HTML/CSS | `front/index.html`, `front/me.html`, `front/todos.html`, `front/404.html`, `front/css/styles.css` |
 | Front JavaScript | `front/scripts.js` |
-| Back Express | `back/server.js`, `back/routes.js`, `back/auth.middleware.js` |
+| Back Express | `back/server.js`, `back/routes/user.routes.js`, `back/routes/pages.routes.js`, `back/routes/todos.routes.js`, `back/auth.middleware.js` |
 | Back SQL | `back/database.sql`, `back/mysql_conn.js` |
 
 ---
@@ -236,7 +274,7 @@ project_template_v2/
 | Anadir todos los archivos | `git add .` |
 | Hacer commit | `git commit -m "feat: descripcion"` |
 | Subir mi rama | `git push -u origin feat/mi-tarea` |
-| Traer cambios de develop a mi rama | `git merge develop` |
+| Traer cambios de develop a mi rama | `git rebase develop` |
 
 ---
 
