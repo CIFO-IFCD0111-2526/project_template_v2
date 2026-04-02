@@ -59,3 +59,5 @@ router.put("/todos/:id", authAPI, async (req, res) => {
     // 3. Toggle: UPDATE tareas SET completada = NOT completada WHERE id = ?
     // 4. Devolver la tarea actualizada con status 200
 });
+
+module.exports =  router  ; 
