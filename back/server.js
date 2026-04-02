@@ -23,26 +23,20 @@ server.get("/", (req, res) => {
     res.sendFile(path.join(__dirname, "../front", "index.html"));
 });
 
-// TODO: Aqui van las rutas de paginas privadas protegidas con authPage.
-
-// Si no se encuentra el token o no es valido, se redirige a la pagina de login. Nuevas rutas privadas:
-
+// Paginas privadas protegidas con authPage
 server.get("/me", authPage, (req, res) => {
-     res.sendFile(path.join(__dirname, "../front", "me.html"));
- });
+    res.sendFile(path.join(__dirname, "../front", "me.html"));
+});
 
- // Lo mismo para la pagina privada, solo se puede acceder si el token es valido, sino se redirige a login.
- server.get("/todos", authPage, (req, res) => {
-     res.sendFile(path.join(__dirname, "../front", "todos.html"));
- });
- 
+server.get("/todos", authPage, (req, res) => {
+    res.sendFile(path.join(__dirname, "../front", "todos.html"));
+});
 
-// Middleware 404 - debe ir al final de todas las rutas para garantizar que se ejecute solo si no se encuentra ninguna ruta anterior
+// Middleware 404 - debe ir al final de todas las rutas
 server.use((req, res) => {
     res.status(404).sendFile(path.join(__dirname, "../front", "404.html"));
 });
+
 const PORT = process.env.PORT || 3000;
 server.listen(PORT, () => console.log("Servidor activo en http://localhost:" + PORT));
-
-
 

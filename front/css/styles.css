@@ -146,20 +146,6 @@ main.container-404 {
     gap: 1rem;
 }
 
-.btn-404 {
-    margin: 2%;  
-    display: inline-block;
-    padding: 10px 20px;
-    background: #555;
-    color: white;
-    padding: 5px 30px;
-    border: none;
-    border-radius: 8px;
-    font-size: 16px;
-    cursor: pointer;
-}
-
-
 .error-page {
     background: #ffffff;
 }
@@ -202,4 +188,6 @@ main.container-404 {
 }
 
 .btn-404:hover {
-    opacity: 0.75; transform: translateY(-1px); }
+    opacity: 0.75;
+    transform: translateY(-1px);
+}
