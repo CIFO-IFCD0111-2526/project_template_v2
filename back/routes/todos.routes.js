@@ -11,7 +11,7 @@ const { authAPI } = require("../auth.middleware.js");
 
 // PUT /api/v1/todos/:id
 router.put("/todos/:id", authAPI, async (req, res) => {
-    // con authAPI nos aseguramos que el usuario está logueado y existe, sinó ya se le ha direccionado
+    // con authAPI nos aseguramos que el usuario está logueado y existe, (sinó ya se le ha direccionado a auth )
     const { email } = req.data; // será el "nombre de usuario" del token ( en middleware se crea el data )
     const { id } = req.params;  // const id = req.params.id // per si voleguessim donar-li un altre nom a la variable ( i igual en email ) 
         
@@ -28,14 +28,25 @@ router.put("/todos/:id", authAPI, async (req, res) => {
     // añadir a la query para "rellenar" los campos [ email , id ] 
     
     try { 
-        let [CAMBIO_COMPLETADA] = await pool.query( query , [ email , id ]  );  
+
+        let CAMBIO_OK = await pool.query( query , [ email , id ]  );
+        // CAMBIO_OK retorna true o false si ha anat bé
+        
+        let TAREA = await pool.query( `
+            SELECT * from tareas 
+                WHERE user_id  = ( select id from users where email = ? ) 
+                    AND id  = ? ; ` 
+            , [ email , id ] 
+        );
+        console.log( TAREA , "\n" , CAMBIO_OK ) 
+        return res.status(200).json(TAREA) ; 
     }
     catch ( err ) { 
         console.log(err);
         return res.status(500).json({ error: err.message });
     } 
     finally {
-        
+
 
 
     } ;
