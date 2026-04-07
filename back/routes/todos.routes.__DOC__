@@ -22,9 +22,16 @@ _____
   createdAt: 2026-04-07T13:45:58.700Z
 }
 en l'estat actual ( després del canvi )
+__________________________________
+GET 
+api/v1/todos 
+    de un usuario LOGUEADO ( manda jwt en cookie )
 
+devuelve un array de tareas...
 
+_______________________________________________________
 
-
-const routes = require("./routes/user.routes.js");
-const TodoRoutes = require("./routes/todos.routes.js");
+POST /api/v1/todos/
+    recibe objeto con obj "tarea" en body 
+//pendiente:
+retorna : devuelve datos de la tarea  añadida al servidor.
