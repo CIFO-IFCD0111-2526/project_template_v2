@@ -17,8 +17,8 @@ server.use(express.json());
 server.use(express.static(path.join(__dirname, "../front")));
 
 // API
-server.use("/api/v1", routes);
-server.use("/api/v1", TodoRoutes);
+server.use("/api/v1", userRoutes);
+server.use("/api/v1", todosRoutes);
 // Paginas
 server.get("/", (req, res) => {
     res.sendFile(path.join(__dirname, "../front", "index.html"));
