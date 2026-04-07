@@ -30,15 +30,15 @@ document.addEventListener("DOMContentLoaded", async () => {
       // });
     } else {
       nav.innerHTML = `
-                <a href="/">SignUp</a>
-                <a href="/">SignIn</a>
+                <a href="/signup">SignUp</a>
+                <a href="/signin">SignIn</a>
             `;
     }
   } catch (error) {
     console.error("Error al verificar la sesión", error);
     nav.innerHTML = `
-            <a href="/">SignUp</a>
-            <a href="/">SignIn</a>
+            <a href="/signup">SignUp</a>
+            <a href="/signin">SignIn</a>
         `;
   }
 });
@@ -81,7 +81,7 @@ forms[0].addEventListener("submit", async (e) => {
     }
 
     try {
-      const res = await fetch("/", {
+      const res = await fetch("/api/v1/signin", {
         method: "post",
         body: JSON.stringify({ email, password }),
         headers: { "Content-Type": "application/json" },
@@ -144,7 +144,7 @@ forms[1].addEventListener("submit", async (e) => {
     }
     // enviar datos a Back
     try {
-      const res = await fetch("/", {
+      const res = await fetch("/api/v1/signup", {
         method: "post",
         body: JSON.stringify({
           email: value.email,
