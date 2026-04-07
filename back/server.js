@@ -10,11 +10,15 @@ require("./mysql_conn.js");
 const userRoutes = require("./routes/user.routes.js");
 const todosRoutes = require("./routes/todos.routes.js");
 
+// Reubicamos el middleware de autenticación para que se ejecute antes de las rutas de páginas.
+
+server.use(cookieParser());    // Middleware para parsear cookies
+server.use(express.json());    // Si ejecutamos las rutas antes las cookies no se parsean y no se puede validar el token.
+
 const pageRoutes = require("./routes/pages.routes.js");
 server.use("/", pageRoutes);
 
-server.use(cookieParser());
-server.use(express.json());
+
 
 // Archivos estaticos publicos (CSS, JS del front)
 server.use(express.static(path.join(__dirname, "../front")));

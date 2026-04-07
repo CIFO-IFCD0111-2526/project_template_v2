@@ -1,6 +1,18 @@
 const forms = document.querySelectorAll("form");
 const signInRES = document.querySelector("#signInRES");
 const signUpRES = document.querySelector("#signUpRES");
+
+// ------------------------------------ Validación manual (sustituye a Joi)
+
+function validarEmail(email) {
+  const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return regex.test(email);
+}
+
+function validarPassword(password) {
+  return password.length >= 6;
+}
+
 // ------------------------------------ NAV dinámico
 document.addEventListener("DOMContentLoaded", async () => {
   const nav = document.getElementById("nav");
@@ -89,15 +101,18 @@ forms[0].addEventListener("submit", async (e) => {
   const email = e.target.emailSignIn.value;
   const password = e.target.passwordSignIn.value;
 
-  const UserSchema = Joi.object({
-    email: Joi.string().email().required(),
-    password: Joi.string().min(6).required(),
-  });
+  const errores = [];
 
-  const { error } = UserSchema.validate({ email, password });
+  if (!email || !validarEmail(email)) {
+    errores.push("· El email es incorrecto.");
+  }
 
-  if (error) {
-    signInRES.textContent = "Email inválido o password menor que 6 caracteres.";
+  if (!password || !validarPassword(password)) {
+    errores.push("· La contraseña debe tener un mínimo de 6 caracteres.");
+  }
+
+  if (errores.length > 0) {
+    signInRES.innerHTML = errores.join("<br/>");
     signInRES.className = "msg_error";
     return;
   }
@@ -120,10 +135,6 @@ forms[0].addEventListener("submit", async (e) => {
     } else {
       signInRES.textContent = resJSON.message;
       signInRES.className = "msg_ok";
-
-      if (resJSON.accessToken) {
-        localStorage.setItem("accessToken", resJSON.accessToken);
-      }
 
       setTimeout(() => {
         window.location.href = "/todos";
@@ -149,31 +160,26 @@ forms[1].addEventListener("submit", async (e) => {
   const password = e.target.passwordSignUp.value;
   const passwordR = e.target.passwordSignUpR.value;
 
-  const UserSchema = Joi.object({
-    email: Joi.string().email().required(),
-    password: Joi.string().min(6).required(),
-  });
+  const errores = [];
 
   if (!email || !password) {
-    signUpRES.textContent = "Los datos enviados están en formato incorrecto.";
-    signUpRES.className = "msg_error";
-    return;
+    errores.push("· Debes rellenar todos los campos.");
+  }
+
+  if (email && !validarEmail(email)) {
+    errores.push("· El email es incorrecto.");
+  }
+
+  if (password && !validarPassword(password)) {
+    errores.push("· La contraseña debe tener un mínimo de 6 caracteres.");
   }
 
   if (password !== passwordR) {
-    signUpRES.innerHTML = "· Las contraseñas no coinciden.";
-    signUpRES.className = "msg_error";
-    return;
+    errores.push("· Las contraseñas no coinciden.");
   }
 
-  const { error, value } = UserSchema.validate({ email, password }, { abortEarly: false });
-  if (error) {
-    signUpRES.innerHTML = error.details
-      .map((err) => {
-        if (err.path[0] === "email") return "· El email es incorrecto";
-        return "· La contraseña debe tener un mínimo de 6 caracteres.";
-      })
-      .join("<br/>");
+  if (errores.length > 0) {
+    signUpRES.innerHTML = errores.join("<br/>");
     signUpRES.className = "msg_error";
     return;
   }
@@ -184,7 +190,7 @@ forms[1].addEventListener("submit", async (e) => {
   try {
     const res = await fetch("/api/v1/signup", {
       method: "post",
-      body: JSON.stringify({ email: value.email, password: value.password }),
+      body: JSON.stringify({ email, password }),
       headers: { "Content-Type": "application/json" },
     });
 
@@ -196,6 +202,9 @@ forms[1].addEventListener("submit", async (e) => {
     } else {
       signUpRES.textContent = resJSON.message;
       signUpRES.className = "msg_ok";
+      setTimeout(() => {
+        window.location.href = "/";
+      }, 3000);
     }
   } catch (error) {
     signUpRES.textContent = "Error de conexión con el servidor.";
