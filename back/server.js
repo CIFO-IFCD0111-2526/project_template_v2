@@ -8,6 +8,7 @@ const { authPage } = require("./auth.middleware.js");
 
 require("./mysql_conn.js");
 const userRoutes = require("./routes/user.routes.js");
+const todosRoutes = require("./routes/todos.routes.js");
 
 const pageRoutes = require("./routes/pages.routes.js");
 server.use("/", pageRoutes);
@@ -20,6 +21,7 @@ server.use(express.static(path.join(__dirname, "../front")));
 
 // API
 server.use("/api/v1", userRoutes);
+server.use("/api/v1", todosRoutes);
 
 // Middleware 404 - debe ir al final de todas las rutas
 server.use((req, res) => {
@@ -28,4 +30,3 @@ server.use((req, res) => {
 
 const PORT = process.env.PORT || 3000;
 server.listen(PORT, () => console.log("Servidor activo en http://localhost:" + PORT));
-
