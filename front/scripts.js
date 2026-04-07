@@ -45,12 +45,23 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 // ------------------------------------------------------------------------------------
 
+<<<<<<< HEAD
 forms[0].addEventListener("submit", async e => {
   e.preventDefault();
   const btn = e.target.querySelector("button");  // Obtener el botón del formulario --> necesario para deshabilitarlo durante la carga
   signInRES.textContent = "Enviando...";
   signInRES.className = " ";
   btn.disabled = true;                        // Deshabilitar el botón para evitar múltiples envíos
+=======
+        forms[0].addEventListener("submit", async e => {
+            e.preventDefault();
+             const btn = e.target.querySelector("button");  // Obtener el botón del formulario --> necesario para deshabilitarlo durante la carga
+            signInRES.textContent = "Enviando...";
+            signInRES.className = " ";
+            btn.disabled = true;                        // Deshabilitar el botón para evitar múltiples envíos
+
+
+>>>>>>> 5b2303eb7f9c20e1fe1f148524c19653c9b018b0
 
   forms[0].addEventListener("submit", async (e) => {
     signInRES.textContent = "";
@@ -62,9 +73,113 @@ forms[0].addEventListener("submit", async e => {
       password: e.target.passwordSignIn.value,
     };
 
+<<<<<<< HEAD
     if (error) {
       signInRES.textContent = "Email inválido o password menor que 6 caracteres."
       return
+=======
+            const { error } = UserSchema.validate({ email, password })
+
+            if (error) {
+                signInRES.textContent = "Email inválido o password menor que 6 caracteres."
+                return
+            }
+
+            try {
+                const res = await fetch("/api/v1/signin", {
+                    method: "post",
+                    body: JSON.stringify({ email, password }),
+                    headers: { "Content-Type": "application/json" }
+                });
+
+                const resJSON = await res.json();
+
+                if (resJSON.error) {
+                    signInRES.textContent = resJSON.error;
+                    signInRES.className = "msg_error";       // lanzamos mensaje de error
+
+                } else {
+                    signInRES.textContent = resJSON.message;
+                    signInRES.className = "msg_success";    // lanzamos mensaje de éxito si todo va bien.
+
+                    if (resJSON.accessToken) {
+                        localStorage.setItem("accessToken", resJSON.accessToken);
+                    }
+
+                    setTimeout(() => {
+                        window.location.href = "/private"
+                    }, 3000);
+                }
+
+            } catch (error) {
+                signInRES.textContent = "Error de conexion con el servidor";
+                 signInRES.className = "msg_error";       // lanzamos mensaje de error si falla la conexión con el servidor  
+            } finally {
+                btn.disabled = false;                   // Volver a habilitar el botón después de la respuesta
+            }
+        });
+
+        const signUpRES = document.querySelector("#signUpRES");
+
+        // const privateLink = document.querySelectorAll("a");
+
+        // formulario de signup
+        forms[1].addEventListener("submit", async e => {
+            e.preventDefault();
+             const btn = e.target.querySelector("button");  // Obtener el botón del formulario --> necesario para deshabilitarlo durante la carga
+            signUpRES.textContent = "Enviando...";
+            signUpRES.className = " ";                    // Limpiar clases de mensaje anteriores
+            btn.disabled = true;
+
+            // validación
+            const UserSchema = Joi.object({
+                email: Joi.string().email().required(),
+                password: Joi.string().min(6).required(),
+            });
+
+            const datos = {
+                email: e.target.emailSignUp.value,
+                password: e.target.passwordSignUp.value,
+            }
+
+            if (!e.target.emailSignUp.value || !e.target.passwordSignUp.value) {
+                signUpRES.textContent = "Los datos enviados están en formato incorrecto";
+                return;
+            } else {
+                // Validación con Joi
+                const { error, value } = UserSchema.validate(datos, { abortEarly: false });
+                if (error) {
+                    console.log(error.details);
+                    return;
+                }
+                // enviar datos a Back
+                try {
+                    const res = await fetch("/api/v1/signup", {
+                        method: "post",
+                        body: JSON.stringify({
+                            email: value.email,
+                            password: value.password
+                        }),
+                        headers: { "Content-Type": "application/json" },
+                    });
+                    const resJSON = await res.json();
+
+                    if (resJSON.error) {
+                        signUpRES.textContent = resJSON.error;
+                        signUpRES.className = "msg_error";       // lanzamos mensaje de error    
+                    } else {
+                        signUpRES.textContent = resJSON.message;
+                        signUpRES.className = "msg_success";    // lanzamos mensaje de éxito si todo va bien.
+                    }
+
+                } catch (error) {
+                    signUpRES.textContent = "Error de conexion con el servidor";
+                    signUpRES.className = "msg_error";       // lanzamos mensaje de error si falla la conexión con el servidor
+                }
+
+            }
+        })
+>>>>>>> 5b2303eb7f9c20e1fe1f148524c19653c9b018b0
     }
 
     try {
