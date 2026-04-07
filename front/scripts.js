@@ -2,7 +2,7 @@ const forms = document.querySelectorAll("form");
 const signInRES = document.querySelector("#signInRES");
 const signUpRES = document.querySelector("#signUpRES");
 
-// ------------------------------------   Pendiente probar NAV
+// ------------------------------------ NAV dinámico
 document.addEventListener("DOMContentLoaded", async () => {
   const nav = document.getElementById("nav");
   if (!nav) return;
@@ -43,320 +43,129 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 });
 
-// ------------------------------------------------------------------------------------
+// ------------------------------------ Formulario SignIn
 
-<<<<<<< HEAD
-forms[0].addEventListener("submit", async e => {
+forms[0].addEventListener("submit", async (e) => {
   e.preventDefault();
-  const btn = e.target.querySelector("button");  // Obtener el botón del formulario --> necesario para deshabilitarlo durante la carga
-  signInRES.textContent = "Enviando...";
-  signInRES.className = " ";
-  btn.disabled = true;                        // Deshabilitar el botón para evitar múltiples envíos
-=======
-        forms[0].addEventListener("submit", async e => {
-            e.preventDefault();
-             const btn = e.target.querySelector("button");  // Obtener el botón del formulario --> necesario para deshabilitarlo durante la carga
-            signInRES.textContent = "Enviando...";
-            signInRES.className = " ";
-            btn.disabled = true;                        // Deshabilitar el botón para evitar múltiples envíos
+  signInRES.textContent = "";
+  signInRES.className = "";
 
+  const btn = e.target.querySelector("button");
+  const email = e.target.emailSignIn.value;
+  const password = e.target.passwordSignIn.value;
 
->>>>>>> 5b2303eb7f9c20e1fe1f148524c19653c9b018b0
-
-  forms[0].addEventListener("submit", async (e) => {
-    signInRES.textContent = "";
-    signUpRES.textContent = "";
-    e.preventDefault();
-
-    const datos = {
-      email: e.target.emailSignIn.value,
-      password: e.target.passwordSignIn.value,
-    };
-
-<<<<<<< HEAD
-    if (error) {
-      signInRES.textContent = "Email inválido o password menor que 6 caracteres."
-      return
-=======
-            const { error } = UserSchema.validate({ email, password })
-
-            if (error) {
-                signInRES.textContent = "Email inválido o password menor que 6 caracteres."
-                return
-            }
-
-            try {
-                const res = await fetch("/api/v1/signin", {
-                    method: "post",
-                    body: JSON.stringify({ email, password }),
-                    headers: { "Content-Type": "application/json" }
-                });
-
-                const resJSON = await res.json();
-
-                if (resJSON.error) {
-                    signInRES.textContent = resJSON.error;
-                    signInRES.className = "msg_error";       // lanzamos mensaje de error
-
-                } else {
-                    signInRES.textContent = resJSON.message;
-                    signInRES.className = "msg_success";    // lanzamos mensaje de éxito si todo va bien.
-
-                    if (resJSON.accessToken) {
-                        localStorage.setItem("accessToken", resJSON.accessToken);
-                    }
-
-                    setTimeout(() => {
-                        window.location.href = "/private"
-                    }, 3000);
-                }
-
-            } catch (error) {
-                signInRES.textContent = "Error de conexion con el servidor";
-                 signInRES.className = "msg_error";       // lanzamos mensaje de error si falla la conexión con el servidor  
-            } finally {
-                btn.disabled = false;                   // Volver a habilitar el botón después de la respuesta
-            }
-        });
-
-        const signUpRES = document.querySelector("#signUpRES");
-
-        // const privateLink = document.querySelectorAll("a");
-
-        // formulario de signup
-        forms[1].addEventListener("submit", async e => {
-            e.preventDefault();
-             const btn = e.target.querySelector("button");  // Obtener el botón del formulario --> necesario para deshabilitarlo durante la carga
-            signUpRES.textContent = "Enviando...";
-            signUpRES.className = " ";                    // Limpiar clases de mensaje anteriores
-            btn.disabled = true;
-
-            // validación
-            const UserSchema = Joi.object({
-                email: Joi.string().email().required(),
-                password: Joi.string().min(6).required(),
-            });
-
-            const datos = {
-                email: e.target.emailSignUp.value,
-                password: e.target.passwordSignUp.value,
-            }
-
-            if (!e.target.emailSignUp.value || !e.target.passwordSignUp.value) {
-                signUpRES.textContent = "Los datos enviados están en formato incorrecto";
-                return;
-            } else {
-                // Validación con Joi
-                const { error, value } = UserSchema.validate(datos, { abortEarly: false });
-                if (error) {
-                    console.log(error.details);
-                    return;
-                }
-                // enviar datos a Back
-                try {
-                    const res = await fetch("/api/v1/signup", {
-                        method: "post",
-                        body: JSON.stringify({
-                            email: value.email,
-                            password: value.password
-                        }),
-                        headers: { "Content-Type": "application/json" },
-                    });
-                    const resJSON = await res.json();
-
-                    if (resJSON.error) {
-                        signUpRES.textContent = resJSON.error;
-                        signUpRES.className = "msg_error";       // lanzamos mensaje de error    
-                    } else {
-                        signUpRES.textContent = resJSON.message;
-                        signUpRES.className = "msg_success";    // lanzamos mensaje de éxito si todo va bien.
-                    }
-
-                } catch (error) {
-                    signUpRES.textContent = "Error de conexion con el servidor";
-                    signUpRES.className = "msg_error";       // lanzamos mensaje de error si falla la conexión con el servidor
-                }
-
-            }
-        })
->>>>>>> 5b2303eb7f9c20e1fe1f148524c19653c9b018b0
-    }
-
-    try {
-      const res = await fetch("/api/v1/signin", {
-        method: "post",
-        body: JSON.stringify({ email, password }),
-        headers: { "Content-Type": "application/json" }
-      });
-
-      const resJSON = await res.json();
-
-      if (resJSON.error) {
-        signInRES.textContent = resJSON.error;
-        signInRES.className = "msg_error";       // lanzamos mensaje de error
-
-      } else {
-        signInRES.textContent = resJSON.message;
-        signInRES.className = "msg_success";    // lanzamos mensaje de éxito si todo va bien.
-
-        if (resJSON.accessToken) {
-          localStorage.setItem("accessToken", resJSON.accessToken);
-        }
-
-        setTimeout(() => {
-          window.location.href = "/private"
-        }, 3000);
-      }
-
-    } catch (error) {
-      signInRES.textContent = "Error de conexion con el servidor";
-      signInRES.className = "msg_error";       // lanzamos mensaje de error si falla la conexión con el servidor  
-    } finally {
-      btn.disabled = false;                   // Volver a habilitar el botón después de la respuesta
-    }
+  const UserSchema = Joi.object({
+    email: Joi.string().email().required(),
+    password: Joi.string().min(6).required(),
   });
 
-  const signUpRES = document.querySelector("#signUpRES");
+  const { error } = UserSchema.validate({ email, password });
 
-  // const privateLink = document.querySelectorAll("a");
+  if (error) {
+    signInRES.textContent = "Email inválido o password menor que 6 caracteres.";
+    signInRES.className = "msg_error";
+    return;
+  }
 
-  // formulario de signup
-  forms[1].addEventListener("submit", async e => {
-    e.preventDefault();
-    const btn = e.target.querySelector("button");  // Obtener el botón del formulario --> necesario para deshabilitarlo durante la carga
-    signUpRES.textContent = "Enviando...";
-    signUpRES.className = " ";                    // Limpiar clases de mensaje anteriores
-    btn.disabled = true;
+  signInRES.textContent = "Enviando...";
+  btn.disabled = true;
 
-    // validación
-    const UserSchema = Joi.object({
-      email: Joi.string().email().required(),
-      password: Joi.string().min(6).required(),
+  try {
+    const res = await fetch("/api/v1/signin", {
+      method: "post",
+      body: JSON.stringify({ email, password }),
+      headers: { "Content-Type": "application/json" },
     });
 
-    const datos = {
-      email: e.target.emailSignUp.value,
-      password: e.target.passwordSignUp.value,
-    }
+    const resJSON = await res.json();
 
-    if (!e.target.emailSignUp.value || !e.target.passwordSignUp.value) {
-      signUpRES.textContent = "Los datos enviados están en formato incorrecto";
-      return;
+    if (resJSON.error) {
+      signInRES.textContent = resJSON.error;
+      signInRES.className = "msg_error";
     } else {
-      // Validación con Joi
-      const { error, value } = UserSchema.validate(datos, { abortEarly: false });
-      if (error) {
-        console.log(error.details);
-        return;
-      }
-      // enviar datos a Back
-      try {
-        const res = await fetch("/api/v1/signup", {
-          method: "post",
-          body: JSON.stringify({
-            email: value.email,
-            password: value.password
-          }),
-          headers: { "Content-Type": "application/json" },
-        });
-        const resJSON = await res.json();
+      signInRES.textContent = resJSON.message;
+      signInRES.className = "msg_ok";
 
-        if (resJSON.error) {
-          signUpRES.textContent = resJSON.error;
-          signUpRES.className = "msg_error";       // lanzamos mensaje de error    
-        } else {
-          signUpRES.textContent = resJSON.message;
-          signUpRES.className = "msg_success";    // lanzamos mensaje de éxito si todo va bien.
-        }
-
-      } catch (error) {
-        signUpRES.textContent = "Error de conexion con el servidor";
-        signUpRES.className = "msg_error";       // lanzamos mensaje de error si falla la conexión con el servidor
+      if (resJSON.accessToken) {
+        localStorage.setItem("accessToken", resJSON.accessToken);
       }
 
+      setTimeout(() => {
+        window.location.href = "/private";
+      }, 3000);
     }
-  })
+  } catch (error) {
+    signInRES.textContent = "Error de conexión con el servidor.";
+    signInRES.className = "msg_error";
+  } finally {
+    btn.disabled = false;
+  }
 });
 
-try {
-  const res = await fetch("/api/v1/signin", {
-    method: "post",
-    body: JSON.stringify({ email, password }),
-    headers: { "Content-Type": "application/json" },
+// ------------------------------------ Formulario SignUp
+
+forms[1].addEventListener("submit", async (e) => {
+  e.preventDefault();
+  signUpRES.textContent = "";
+  signUpRES.className = "";
+
+  const btn = e.target.querySelector("button");
+  const email = e.target.emailSignUp.value;
+  const password = e.target.passwordSignUp.value;
+  const passwordR = e.target.passwordSignUpR.value;
+
+  const UserSchema = Joi.object({
+    email: Joi.string().email().required(),
+    password: Joi.string().min(6).required(),
   });
 
-  const resJSON = await res.json();
-
-  if (resJSON.error) {
-    signInRES.textContent = resJSON.error;
-  } else {
-    signInRES.textContent = resJSON.message;
-
-    // Comentamos el almacenamiento del token en localStorage al no ser necesario en el formulario web de login (se guarda en las Cookies).
-    /*
-    if (resJSON.accessToken) {
-      localStorage.setItem("accessToken", resJSON.accessToken);
-    } */
-
-    setTimeout(() => {
-      window.location.href = "/private";
-    }, 3000);
-  }
-} catch (error) {
-  signInRES.textContent = "· Error de connexión con el servidor.";
-}
-
-// registro
-forms[1].addEventListener("submit", async (e) => {
-  signInRES.textContent = "";
-  signUpRES.textContent = "";
-  e.preventDefault();
-  const datos = {
-    email: e.target.emailSignUp.value,
-    password: e.target.passwordSignUp.value,
-  };
-
-  if (!e.target.emailSignUp.value || !e.target.passwordSignUp.value) {
-    signUpRES.innerHTML = "· Debes rellenar los campos<br/>";
+  if (!email || !password) {
+    signUpRES.textContent = "Los datos enviados están en formato incorrecto.";
+    signUpRES.className = "msg_error";
     return;
-  } else {
-    // Validamos que las contraseñas coinciden
-    if (e.target.passwordSignUp.value !== e.target.passwordSignUpR.value) {
-      signUpRES.innerHTML += "· Las contraseñas no coinciden.<br/>";
-      //return;
-    }
-    // Validación con Joi
-    const { error, value } = UserSchema.validate(datos, { abortEarly: false });
-    if (error) {
-      for (err of error.details) {
-        if (err.path == "email") {
-          signUpRES.innerHTML += `· El email es incorrecto<br/>`;
-          //signInRES.innerHTML += `${err.message}<br/>`;
-        } else {
-          signUpRES.innerHTML += `· La contraseña debe tener un mínimo de 6 carácteres.<br/>`;
-        }
-      }
-      return;
-    }
-    // enviar datos a Back
-    try {
-      const res = await fetch("/api/v1/signup", {
-        method: "post",
-        body: JSON.stringify({
-          email: value.email,
-          password: value.password,
-        }),
-        headers: { "Content-Type": "application/json" },
-      });
-      const resJSON = await res.json();
+  }
 
-      if (resJSON.error) {
-        signUpRES.textContent = resJSON.error;
-      } else {
-        signUpRES.textContent = resJSON.message;
-      }
-    } catch (error) {
-      signUpRES.textContent = "· Error de conexión con el servidor";
+  if (password !== passwordR) {
+    signUpRES.innerHTML = "· Las contraseñas no coinciden.";
+    signUpRES.className = "msg_error";
+    return;
+  }
+
+  const { error, value } = UserSchema.validate({ email, password }, { abortEarly: false });
+  if (error) {
+    signUpRES.innerHTML = error.details
+      .map((err) => {
+        if (err.path[0] === "email") return "· El email es incorrecto";
+        return "· La contraseña debe tener un mínimo de 6 caracteres.";
+      })
+      .join("<br/>");
+    signUpRES.className = "msg_error";
+    return;
+  }
+
+  signUpRES.textContent = "Enviando...";
+  btn.disabled = true;
+
+  try {
+    const res = await fetch("/api/v1/signup", {
+      method: "post",
+      body: JSON.stringify({ email: value.email, password: value.password }),
+      headers: { "Content-Type": "application/json" },
+    });
+
+    const resJSON = await res.json();
+
+    if (resJSON.error) {
+      signUpRES.textContent = resJSON.error;
+      signUpRES.className = "msg_error";
+    } else {
+      signUpRES.textContent = resJSON.message;
+      signUpRES.className = "msg_ok";
     }
+  } catch (error) {
+    signUpRES.textContent = "Error de conexión con el servidor.";
+    signUpRES.className = "msg_error";
+  } finally {
+    btn.disabled = false;
   }
 });
