@@ -7,8 +7,9 @@ document.addEventListener("DOMContentLoaded", async () => {
   const nav = document.getElementById("nav");
   if (!nav) return;
 
+  // Path del fetch modificado a /api/v1/logout para que el backend pueda verificar la sesión a través de las Cookies.
   try {
-    const res = await fetch("/api/v1/me");
+    const res = await fetch("/api/v1/me");  
 
     if (res.ok) {
       nav.innerHTML = `
@@ -16,18 +17,18 @@ document.addEventListener("DOMContentLoaded", async () => {
                 <a href="/me">Mi Cuenta</a>
                 <button id="logoutBtn">Cerrar Sesión</button>
             `;
+      // Descomentamos el código del botón de logout.
+      const logoutBtn = document.getElementById("logoutBtn");
 
-      // const logoutBtn = document.getElementById("logoutBtn");
-
-      // logoutBtn.addEventListener("click", async () => {
-      //     try {
-      //         await fetch("/api/v1/logout", { method: "POST" });
-      //         localStorage.removeItem("accessToken");
-      //         window.location.href = "/";
-      //     } catch (error) {
-      //         console.error("Error al hacer logout", error);
-      //     }
-      // });
+      logoutBtn.addEventListener("click", async () => {
+          try {
+              await fetch("/api/v1/logout", { method: "POST" });
+              localStorage.removeItem("accessToken");
+              window.location.href = "/";
+          } catch (error) {
+              console.error("Error al hacer logout", error);
+          }
+      });
     } else {
       nav.innerHTML = `
                 <a href="/signup">SignUp</a>
