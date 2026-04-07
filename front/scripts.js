@@ -165,6 +165,10 @@ forms[1].addEventListener("submit", async (e) => {
     } else {
       signUpRES.textContent = resJSON.message;
       signUpRES.className = "msg_ok";
+      setTimeout(() => {
+        window.location.href = "/signin";          // Redirige a SignIn después de un breve mensaje de éxito. 
+      }, 3000);
+                  
     }
   } catch (error) {
     signUpRES.textContent = "Error de conexión con el servidor.";
