@@ -26,19 +26,6 @@ server.use(express.static(path.join(__dirname, "../front")));
 // API
 server.use("/api/v1", userRoutes);
 server.use("/api/v1", todosRoutes);
-// Paginas
-server.get("/", (req, res) => {
-    res.sendFile(path.join(__dirname, "../front", "index.html"));
-});
-
-// Paginas privadas protegidas con authPage
-server.get("/me", authPage, (req, res) => {
-    res.sendFile(path.join(__dirname, "../front", "me.html"));
-});
-
-server.get("/todos", authPage, (req, res) => {
-    res.sendFile(path.join(__dirname, "../front", "todos.html"));
-});
 
 // Middleware 404 - debe ir al final de todas las rutas
 server.use((req, res) => {
