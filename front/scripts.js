@@ -30,15 +30,15 @@ document.addEventListener("DOMContentLoaded", async () => {
       // });
     } else {
       nav.innerHTML = `
-                <a href="/signup">SignUp</a>
-                <a href="/signin">SignIn</a>
+                <a href="/">SignUp</a>
+                <a href="/">SignIn</a>
             `;
     }
   } catch (error) {
     console.error("Error al verificar la sesión", error);
     nav.innerHTML = `
-            <a href="/signup">SignUp</a>
-            <a href="/signin">SignIn</a>
+            <a href="/">SignUp</a>
+            <a href="/">SignIn</a>
         `;
   }
 });
