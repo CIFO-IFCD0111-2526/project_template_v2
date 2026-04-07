@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   // Path del fetch modificado a /api/v1/logout para que el backend pueda verificar la sesión a través de las Cookies.
   try {
-    const res = await fetch("/api/v1/logout");  
+    const res = await fetch("/api/v1/me");  
 
     if (res.ok) {
       nav.innerHTML = `
