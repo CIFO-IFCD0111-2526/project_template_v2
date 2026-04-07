@@ -7,9 +7,8 @@ document.addEventListener("DOMContentLoaded", async () => {
   const nav = document.getElementById("nav");
   if (!nav) return;
 
-  // Path del fetch modificado a /api/v1/logout para que el backend pueda verificar la sesión a través de las Cookies.
   try {
-    const res = await fetch("/api/v1/me");  
+    const res = await fetch("/api/v1/me");
 
     if (res.ok) {
       nav.innerHTML = `
@@ -17,7 +16,6 @@ document.addEventListener("DOMContentLoaded", async () => {
                 <a href="/me">Mi Cuenta</a>
                 <button id="logoutBtn">Cerrar Sesión</button>
             `;
-      // Descomentamos el código del botón de logout.
       const logoutBtn = document.getElementById("logoutBtn");
 
       logoutBtn.addEventListener("click", async () => {
@@ -31,15 +29,15 @@ document.addEventListener("DOMContentLoaded", async () => {
       });
     } else {
       nav.innerHTML = `
-                <a href="/signup">SignUp</a>
-                <a href="/signin">SignIn</a>
+                <a href="/">SignUp</a>
+                <a href="/">SignIn</a>
             `;
     }
   } catch (error) {
     console.error("Error al verificar la sesión", error);
     nav.innerHTML = `
-            <a href="/signup">SignUp</a>
-            <a href="/signin">SignIn</a>
+            <a href="/">SignUp</a>
+            <a href="/">SignIn</a>
         `;
   }
 });
@@ -92,7 +90,7 @@ forms[0].addEventListener("submit", async (e) => {
       }
 
       setTimeout(() => {
-        window.location.href = "/private";
+        window.location.href = "/todos";
       }, 3000);
     }
   } catch (error) {
