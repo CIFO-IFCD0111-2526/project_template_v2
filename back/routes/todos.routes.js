@@ -3,6 +3,7 @@ const router = new express.Router();
 const pool = require("../mysql_conn.js");
 const bcrypt = require("bcrypt");
 const { authAPI } = require("../auth.middleware.js");
+require('dotenv').config();
 
 // const joi = require("joi"); 
 // const jwt = require("jsonwebtoken"); se encarga el middleware authAPI 
@@ -71,12 +72,7 @@ router.put("/todos/:id", authAPI, async (req, res) => {
     // 4. Devolver la tarea actualizada con status 200
 });
 
-module.exports =  router  ; 
-require('dotenv').config();
-const express = require("express");
-const router = new express.Router();
-const pool = require("../mysql_conn.js");
-const { authAPI } = require("../auth.middleware.js");
+
 
 // ------- -> GET <- -------
 
