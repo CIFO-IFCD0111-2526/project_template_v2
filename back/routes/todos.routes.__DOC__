@@ -22,3 +22,9 @@ _____
   createdAt: 2026-04-07T13:45:58.700Z
 }
 en l'estat actual ( després del canvi )
+
+
+
+
+const routes = require("./routes/user.routes.js");
+const TodoRoutes = require("./routes/todos.routes.js");
