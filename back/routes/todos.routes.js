@@ -1,4 +1,3 @@
-require('dotenv').config();
 const express = require("express");
 const router = new express.Router();
 const pool = require("../mysql_conn.js");
