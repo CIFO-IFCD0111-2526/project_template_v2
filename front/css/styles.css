@@ -237,3 +237,8 @@ main.container-404 {
     opacity: 0.75;
     transform: translateY(-1px);
 }
+/* Estilos para mensajes de error y exito */
+
+.msg_error { color: red; }
+.msg_ok { color: green; }
+
