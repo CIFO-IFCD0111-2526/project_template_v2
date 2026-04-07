@@ -31,6 +31,10 @@ router.put("/todos/:id", authAPI, async (req, res) => {
 
         let CAMBIO_OK = await pool.query( query , [ email , id ]  );
         // CAMBIO_OK retorna true o false si ha anat bé
+        // console.log( "11", CAMBIO_OK[0].info         );
+        // console.log( "12", CAMBIO_OK[0].serverStatus );
+        // console.log( "13", CAMBIO_OK[0].affectedRows );
+        // console.log( "14", CAMBIO_OK[0].changedRows  );
         
         let TAREA = await pool.query( `
             SELECT * from tareas 
@@ -38,8 +42,15 @@ router.put("/todos/:id", authAPI, async (req, res) => {
                     AND id  = ? ; ` 
             , [ email , id ] 
         );
-        console.log( TAREA , "\n" , CAMBIO_OK ) 
-        return res.status(200).json(TAREA) ; 
+        
+        // console.log( "22" , TAREA,           ) ;
+        //  console.log( "23" , TAREA[0][0]      ) ;
+        // console.log( "24" , TAREA[0][0].id   ) ;
+        // console.log( "25" , TAREA[0][0].titulo       ) ;
+        // console.log( "26" , TAREA[0][0].completada   ) ;
+        // console.log( "27" , TAREA[0][0].user_id      ) ;
+        // console.log( "28" , TAREA[0][0].createdAt    ) ;
+        return res.status(200).json(TAREA[0][0]) ; 
     }
     catch ( err ) { 
         console.log(err);

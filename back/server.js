@@ -8,6 +8,7 @@ const { authPage } = require("./auth.middleware.js");
 
 require("./mysql_conn.js");
 const routes = require("./routes/user.routes.js");
+const TodoRoutes = require("./routes/todos.routes.js");
 
 server.use(cookieParser());
 server.use(express.json());
@@ -16,7 +17,7 @@ server.use(express.json());
 server.use(express.static(path.join(__dirname, "../front")));
 
 // API
-server.use("/api/v1", routes);
+server.use("/api/v1", routes, TodoRoutes);
 
 // Paginas
 server.get("/", (req, res) => {
