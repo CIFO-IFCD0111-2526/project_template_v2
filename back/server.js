@@ -10,8 +10,15 @@ require("./mysql_conn.js");
 const userRoutes = require("./routes/user.routes.js");
 const todosRoutes = require("./routes/todos.routes.js");
 
-server.use(cookieParser());
-server.use(express.json());
+// Reubicamos el middleware de autenticación para que se ejecute antes de las rutas de páginas.
+
+server.use(cookieParser());    // Middleware para parsear cookies
+server.use(express.json());    // Si ejecutamos las rutas antes las cookies no se parsean y no se puede validar el token.
+
+const pageRoutes = require("./routes/pages.routes.js");
+server.use("/", pageRoutes);
+
+
 
 // Archivos estaticos publicos (CSS, JS del front)
 server.use(express.static(path.join(__dirname, "../front")));
@@ -40,4 +47,3 @@ server.use((req, res) => {
 
 const PORT = process.env.PORT || 3000;
 server.listen(PORT, () => console.log("Servidor activo en http://localhost:" + PORT));
-

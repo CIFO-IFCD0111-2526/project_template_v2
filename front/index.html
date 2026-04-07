@@ -7,53 +7,46 @@
     <title>App Tareas</title>
     <link rel="stylesheet" href="./css/styles.css">
     <script src="./scripts.js" defer></script>
-    <!-- Importamos joi para funcionalidades del login  --> 
-    <script src="https://cdn.jsdelivr.net/npm/joi-browser@13.4.0/dist/joi-browser.min.js"></script>
 </head>
 
 <body>
     <header>
         <nav id="nav">
-            <a href="/index.html">Inicio</a>
+            <a href="/">Inicio</a>
         </nav>
+    <h1>BIENVENIDO</h1>
     </header>
-    <main>
-        <h1>Bienvenido</h1>
-        <form novalidate>
-            
-            <label for="email">*Email</label>
-            <input type="email" class="input" name="email" id="emailSigIn" placeholder="email">
-            <label for="password">Password</label>
-            <input type="password" class="input" name="passwordSignIn" id="passwordSignIn" placeholder="password">
-            <button type="submit" class="submit">Sig In!</button>
+<main class="container-forms">
+    <section class="lado-esquerdo">
+        <form novalidate class="signin">
+            <h2>Login</h2>
+            <label for="emailSignIn">*Email</label>
+            <input type="email" id="emailSignIn" name="emailSignIn" class="input">
+
+            <label for="passwordSignIn">Password</label>
+            <input type="password" id="passwordSignIn" name="passwordSignIn" class="input">
+
+            <button type="submit" class="submit">Sign In!</button>
             <div id="signInRES"></div>
         </form>
-        <!-- TODO: Equipo Front HTML - crear formularios de login y registro aqui -->
-        <!-- Ver issues en GitHub para las tareas asignadas -->
-        <form class="signin" novalidate>
-            <h1> Registro </h1>
+    </section>
 
-            <label for="password">Contraseña</label>
-            <input type="password" id="passwordSignUp" name="password" required>
+    <section class="lado-direito">
+        <form novalidate class="signup">
+            <h2>Sign Up</h2>
+            <label for="emailSignUp">*Email</label>
+            <input type="email" id="emailSignUp" name="emailSignUp" class="input">
 
-            <label for="passwordR">Repite contraseña</label>
-            <input type="password" id="passwordSignUpR" name="passwordR" required>
-        
-            <label for="email">*Email</label>
-            <input type="email" id="emailSignUp" name="email" required>
-            
+            <label for="passwordSignUp">Password</label>
+            <input type="password" id="passwordSignUp" name="passwordSignUp" class="input">
 
-            <button type="submit" id="btnSubmit" disabled>Sign Up!</button>
+            <label for="passwordSignUpR">Repite contraseña</label>
+            <input type="password" id="passwordSignUpR" name="passwordSignUpR" class="input">
+
+            <button type="submit" class="submit">Sign Up!</button>
             <div id="signUpRES"></div>
         </form>
-    </main>
-    <footer>
-        <p>© 2026 Mi Página Web</p>
-    </footer>
+    </section>
+</main>
 </body>
-
-</html>
-    </main>
-</body>
-
 </html>
