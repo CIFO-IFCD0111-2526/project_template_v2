@@ -7,8 +7,8 @@ const server = new express();
 const { authPage } = require("./auth.middleware.js");
 
 require("./mysql_conn.js");
-const routes = require("./routes/user.routes.js");
-const TodoRoutes = require("./routes/todos.routes.js");
+const userRoutes = require("./routes/user.routes.js");
+const todosRoutes = require("./routes/todos.routes.js");
 
 server.use(cookieParser());
 server.use(express.json());
