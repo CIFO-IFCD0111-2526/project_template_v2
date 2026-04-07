@@ -57,7 +57,7 @@ router.delete("/todos/:id", authAPI, async (req, res) => {
   }
 });
 
-module.exports = router;
+
 
 // ------- -> POST <- -------
 // POST /api/v1/todos
@@ -74,7 +74,7 @@ router.post("/todos", authAPI, async (req, res) => {
       "select id from users where email =?",
       [email]
     );
-    if (row.length === 0) {
+    if (user.length === 0) {
       return res.status(404).json({
         error: "Usuario no encontrado"
       });
@@ -102,3 +102,8 @@ router.post("/todos", authAPI, async (req, res) => {
     });
   }
 });
+
+
+// mogut aqui baix perquè sinó no agafa els endpoints de sota. 
+
+module.exports = router;
