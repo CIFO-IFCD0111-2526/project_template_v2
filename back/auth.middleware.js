@@ -29,4 +29,17 @@ function authPage(req, res, next) {
     }
 }
 
-module.exports = { authAPI, authPage };
+// Middleware para redirigir a /todos si ya está logueado
+function redirectIfLogged(req, res, next) {
+    const token = req.cookies.accessToken;
+    if (!token) return next();
+    try {
+        jwt.verify(token, process.env.JWT_SECRET);
+        return res.redirect("/todos");
+    } catch (error) {
+        res.clearCookie("accessToken");
+        next();
+    }
+}
+
+module.exports = { authAPI, authPage, redirectIfLogged };
