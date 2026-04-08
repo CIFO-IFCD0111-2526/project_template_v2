@@ -18,11 +18,12 @@ async function cargarTareas() {
         return;
     }
 
-    const tareas = await res.json();
+    const data = await res.json();
+    const tareas = Array.isArray(data) ? data : (data.tasks || []);
     renderTareas(tareas);
 }
 
-// PUT — Actualitzar una tasca
+// Renderizar tareas + PUT toggle completada
 function renderTareas(tareas) {
     lista.innerHTML = "";    
 
@@ -59,7 +60,5 @@ function renderTareas(tareas) {
     });
 }
 
-cargarTareas();
-
-
+if (lista) cargarTareas();
 
