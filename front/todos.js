@@ -1,7 +1,7 @@
 /*============================================================
 =                 Gestió js de les tasques                   =
 ============================================================*/
-// Cal carregar al todos.html: <script src="./js/todos.js" defer></script>  o la ruta que sigui.
+
 
 const lista = document.getElementById("tareasList");
 
@@ -11,29 +11,46 @@ async function cargarTareas() {
         credentials: "include"
     });
 
+    // Si la resposta no és OK, mostrar un error
+    if (!res.ok) {
+        console.error("Error cargando tareas:", res.status);
+        lista.innerHTML = "<p>Error cargando tareas</p>";
+        return;
+    }
+
     const tareas = await res.json();
     renderTareas(tareas);
 }
 
-// POST — Crear una nova tasca
+// PUT — Actualitzar una tasca
 function renderTareas(tareas) {
-    lista.innerHTML = "";
+    lista.innerHTML = "";    
 
+    // Si no hi ha tasques, mostrar un missatge
+    if (!tareas || tareas.length === 0) {
+        lista.innerHTML = "<p>No hay tareas pendientes</p>"; 
+        return;
+    }
     tareas.forEach(t => {
-        const div = document.createElement("div");
+        const div = document.createElement("div");    
         div.classList.add("tarea");
         if (t.completada) div.classList.add("completada");
 
-        div.innerHTML = `
+        div.innerHTML = ` 
             <input type="checkbox" class="check" ${t.completada ? "checked" : ""}>
             <span>${t.titulo}</span>
         `;
 
         div.querySelector(".check").addEventListener("change", async () => {
-            await fetch(`/api/v1/todos/${t.id}`, {
+            const res = await fetch(`/api/v1/todos/${t.id}`, {      
                 method: "PUT",
                 credentials: "include"
             });
+            // Si la resposta no és OK, mostrar un error i no canviar l'estat visual de la tasca
+            if (!res.ok) {
+                console.error("Error actualizando tareas:", res.status);
+                return;
+            }
 
             div.classList.toggle("completada");
         });
