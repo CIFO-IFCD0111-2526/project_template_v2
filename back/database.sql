@@ -30,6 +30,7 @@ CREATE TABLE IF NOT EXISTS `tareas`.`tareas` (
   `completada` TINYINT NULL DEFAULT 0,
   `user_id` INT NOT NULL,
   `createdAt` DATETIME(1) NULL DEFAULT current_timestamp,
+  `updatedAt` DATETIME(1) ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   CONSTRAINT `fk_tareas_users`
     FOREIGN KEY (`user_id`)
