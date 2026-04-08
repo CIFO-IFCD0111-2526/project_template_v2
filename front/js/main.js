@@ -1,3 +1,4 @@
+const API_URL = "http://localhost:3000";
 // ------------------------------------ Validación manual (sustituye a Joi)
 
 function validarEmail(email) {

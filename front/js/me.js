@@ -1,3 +1,4 @@
+const API_URL = "http://localhost:3000";
 // ------------------------------------ Página Mi Cuenta
 
 document.addEventListener("DOMContentLoaded", async () => {
