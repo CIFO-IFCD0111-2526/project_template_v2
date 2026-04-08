@@ -144,7 +144,7 @@ router.get("/me", authAPI, async (request, response) => {
   return response.status(200).json({
     id: results[0].id,
     email: results[0].email,
-    createdAt: results[0].createdat,
+    createdAt: results[0].createdAt,
   });
 });
 
