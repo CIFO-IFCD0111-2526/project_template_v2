@@ -25,25 +25,25 @@ async function cargarTareas() {
 
 // Renderizar tareas + PUT toggle completada
 function renderTareas(tareas) {
-    lista.innerHTML = "";    
+    lista.innerHTML = "";
 
     // Si no hi ha tasques, mostrar un missatge
     if (!tareas || tareas.length === 0) {
-        lista.innerHTML = "<p>No hay tareas pendientes</p>"; 
+        lista.innerHTML = "<p>No hay tareas pendientes</p>";
         return;
     }
     tareas.forEach(t => {
-        const div = document.createElement("div");    
+        const div = document.createElement("div");
         div.classList.add("tarea");
         if (t.completada) div.classList.add("completada");
 
-        div.innerHTML = ` 
+        div.innerHTML = `
             <input type="checkbox" class="check" ${t.completada ? "checked" : ""}>
             <span>${t.titulo}</span>
         `;
 
         div.querySelector(".check").addEventListener("change", async () => {
-            const res = await fetch(`/api/v1/todos/${t.id}`, {      
+            const res = await fetch(`/api/v1/todos/${t.id}`, {
                 method: "PUT",
                 credentials: "include"
             });
@@ -61,4 +61,3 @@ function renderTareas(tareas) {
 }
 
 if (lista) cargarTareas();
-
