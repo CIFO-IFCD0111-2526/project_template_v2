@@ -34,7 +34,7 @@ if (forms[0]) {
     btn.disabled = true;
 
     try {
-      const res = await fetch((`${API_URL}/api/v1/singin`), {
+      const res = await fetch((`${API_URL}/api/v1/signin`), {
         method: "post",
         body: JSON.stringify({ email, password }),
         headers: { "Content-Type": "application/json" },
