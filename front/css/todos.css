@@ -5,6 +5,16 @@
     gap: 0.8rem;
 }
 
+#nuevaTarea {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: auto;
+    padding: 20px;
+    width: fit-content;
+    height: fit-content;
+}
+
 .tarea {
     background: #fff;
     padding: 0.8rem 1rem;
@@ -25,7 +35,10 @@
     border: none;
     padding: 0.4rem 0.7rem;
     border-radius: 4px;
-    cursor: pointer;
+}
+
+button[type=submit] {
+    margin: 10px 30px;
 }
 
 .tarea button:hover {
