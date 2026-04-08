@@ -10,7 +10,7 @@
     font-family: "Arimo", sans-serif;
 } */
 
-header {
+/* header {
     max-width: 900px;
     margin: 10px auto;
     text-align: center;
@@ -28,7 +28,7 @@ form h2 {
     margin-bottom: 20px;
     font-size: 23px;
     color: rgb(0, 0, 0);
-}
+} */
 
 /* .container {
     max-width: 600px;
@@ -83,7 +83,7 @@ form h2 {
     background-color: rgb(241, 241, 241);
 } */
 
-form {
+/* form {
     padding: 10px 0px 25px 0px;
     flex: 1;
     display: flex;
@@ -103,7 +103,7 @@ label {
     width: 75%;
     margin-bottom: 5px;
     color: rgb(0, 0, 0);
-}
+} */
 
 /* button.submit {
     background-color: #414141;
@@ -176,12 +176,12 @@ button:hover {
     background-color: #555;
 } */
 
-footer {
+/* footer {
     text-align: center;
     padding: 20px;
     background-color: #f1f1f1;
     margin-top: 20px;
-}
+} */
 
 /* main.container-404 {
     text-align: center;
