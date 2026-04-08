@@ -40,7 +40,7 @@ router.post("/signin", async (request, response) => {
       //console.log(results);
     } catch (err) {
       console.error(err.message);
-      return response.status(500).json({ error: err.message });
+      return response.status(500).json({ error: "Error de base de datos" });
     }
     // Comprobación de usuario y contraseña
     //console.log(results);
@@ -95,7 +95,7 @@ router.post("/signup", async (request, response) => {
       //console.log(userExists);
     } catch (err) {
       console.error(err.message);
-      return response.status(500).json({ error: err.message });
+      return response.status(500).json({ error: "Error de base de datos" });
     }
     if (userExists.length === 0) {
       console.log("el usuario no existe! Procedemos a crearlo");
@@ -114,7 +114,7 @@ router.post("/signup", async (request, response) => {
         return response.status(201).json({ message: "Usuario creado en DB correctamente" });
       } catch (err) {
         console.error(err.message);
-        return response.status(500).json({ error: err.message });
+        return response.status(500).json({ error: "Error de base de datos" });
       }
     } else {
       return response.status(400).json({ error: "El usuario ya existe." });
@@ -134,7 +134,7 @@ router.get("/me", authAPI, async (request, response) => {
       [email]);
   } catch (err) {
     console.log(err.message);
-    return response.status(500).json({ error: err.message });
+    return response.status(500).json({ error: "Error de base de datos" });
   }
   //validación de seguridad extra
   if (results.length === 0) {
