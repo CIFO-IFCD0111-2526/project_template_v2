@@ -8,7 +8,7 @@ const tituloTarea = document.querySelector("#tituloTarea");
 // ------- -> LISTAR TAREAS <- -------
 
     try {
-        const res = await fetch("/api/v1/todos");
+        const res = await fetch(`${API_URL}/api/v1/todos`);
         if (!res.ok) return;
         const data = await res.json();
         const tareas = Array.isArray(data) ? data : (data.tasks || []);
@@ -35,7 +35,7 @@ const tituloTarea = document.querySelector("#tituloTarea");
     const titulo = e.target.tituloTarea.value;
 
     try {
-        const res = await fetch("/api/v1/todos", {
+        const res = await fetch(`${API_URL}/api/v1/todos`, {
             method: "post",
             body: JSON.stringify({ titulo }),
             headers: { "Content-Type": "application/json" },
@@ -70,7 +70,7 @@ tareasList.addEventListener("click", async (e) => {
   // Toggle completada
   if (e.target.classList.contains("check")) {
     try {
-        const res = await fetch(`/api/v1/todos/${id}`, {
+        const res = await fetch(`${API_URL}/api/v1/todos/${id}`, {
             method: "PUT",
         });
         if (!res.ok) return;
@@ -84,7 +84,7 @@ tareasList.addEventListener("click", async (e) => {
   // Eliminar
   if (e.target.tagName === "BUTTON") {
     try {
-        const res = await fetch(`/api/v1/todos/${id}`, {
+        const res = await fetch(`${API_URL}/api/v1/todos/${id}`, {
             method: "delete",
         });
         if (!res.ok) return;

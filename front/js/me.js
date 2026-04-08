@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   try {
 
-    const res = await fetch("/api/v1/me", {
+    const res = await fetch(`${API_URL}/api/v1/me`, {
       credentials: "include"
     });
 

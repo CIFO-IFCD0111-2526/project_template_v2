@@ -34,7 +34,7 @@ if (forms[0]) {
     btn.disabled = true;
 
     try {
-      const res = await fetch("/api/v1/signin", {
+      const res = await fetch((`${API_URL}/api/v1/singin`), {
         method: "post",
         body: JSON.stringify({ email, password }),
         headers: { "Content-Type": "application/json" },
@@ -103,7 +103,7 @@ if (forms[1]) {
     btn.disabled = true;
 
     try {
-      const res = await fetch("/api/v1/signup", {
+      const res = await fetch(`${API_URL}/api/v1/signup`, {
         method: "post",
         body: JSON.stringify({ email, password }),
         headers: { "Content-Type": "application/json" },

@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   if (!nav) return;
 
   try {
-    const res = await fetch("/api/v1/me");
+    const res = await fetch(`${API_URL}/api/v1/me`);
 
     if (res.ok) {
       nav.innerHTML = `
@@ -27,7 +27,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
       logoutBtn.addEventListener("click", async () => {
           try {
-              await fetch("/api/v1/logout", { method: "POST" });
+              await fetch(`${API_URL}/api/v1/logout`, { method: "POST" });
               localStorage.removeItem("accessToken");
               window.location.href = "/";
           } catch (error) {
