@@ -1,0 +1,55 @@
+main.container-404 {
+    text-align: center;
+    font-family: 'DM Sans', sans-serif;
+    min-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem 2rem;
+    gap: 1rem;
+}
+
+.error-page {
+    background: #ffffff;
+}
+
+.container-404 h1 {
+    font-size: clamp(5rem, 18vw, 9rem);
+    font-weight: 300;
+    line-height: 1;
+    letter-spacing: -3px;
+    margin: 0;
+}
+
+.container-404 hr {
+    width: 32px;
+    border: none;
+    border-top: 1px solid #ccc;
+    margin: 0.25rem 0;
+}
+
+.container-404 p {
+    font-size: 1rem;
+    color: #888;
+    margin: 0;
+}
+
+.btn-404 {
+    margin-top: 0.5rem;
+    display: inline-block;
+    background: #111;
+    color: #fff;
+    border-radius: 8px;
+    padding: 0.65rem 1.4rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: opacity 0.15s, transform 0.15s;
+}
+
+.btn-404:hover {
+    opacity: 0.75;
+    transform: translateY(-1px);
+}

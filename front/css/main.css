@@ -1,0 +1,120 @@
+@import url('https://fonts.googleapis.com/css2?family=Arimo:ital,wght@0,400..700;1,400..700&display=swap');
+
+* {
+    margin: 0;
+    box-sizing: border-box;
+}
+
+
+body {
+    color: #333;
+    font-family: "Arimo", sans-serif;
+}
+
+#nav {
+    display: flex;
+    gap: 10px;
+    padding: 14px 20px;
+    background: #535353;
+    border-radius: 7px;
+    align-items: center;
+}
+
+#nav a {
+    color: rgb(255, 255, 255);
+    text-decoration: none;
+    font-weight: 700;
+}
+
+button.submit {
+    background-color: #414141;
+    color: white;
+    padding: 10px 30px;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: 15px;
+}
+
+button.submit:hover {
+    background-color: #585858;
+}
+
+#logoutBtn {
+    padding: 0.4rem 0.8rem;
+    margin-left: auto;
+    cursor: pointer;
+}
+
+button {
+    margin: 2%;
+    background-color: #373838;
+    color: white;
+    padding: 5px 30px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+button:hover {
+    background-color: #555;
+}
+
+/* Estilos para mensajes de error y exito */
+.msg_error {
+    color: red;
+}
+
+.msg_ok {
+    color: green;
+}
+
+header {
+    max-width: 900px;
+    margin: 10px auto;
+    text-align: center;
+}
+
+header h1 {
+    padding-top: 20px;
+    color: rgb(0, 0, 0);
+    margin-bottom: 40px;
+    text-align: center;
+}
+
+form h2 {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-size: 23px;
+    color: rgb(0, 0, 0);
+}
+
+.input {
+    width: 75%;
+    margin-bottom: 10px;
+    padding: 7px;
+    border-radius: 5px;
+    border: 1px solid rgb(0, 0, 0);
+}
+
+label {
+    width: 75%;
+    margin-bottom: 5px;
+    color: rgb(0, 0, 0);
+}
+
+.container {
+    max-width: 600px;
+    margin: 2rem auto;
+    padding: 1rem;
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #f1f1f1;
+    margin-top: 20px;
+}
