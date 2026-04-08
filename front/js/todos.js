@@ -9,13 +9,16 @@ const tituloTarea = document.querySelector("#tituloTarea");
 
     try {
         const res = await fetch("/api/v1/todos");
-        const resJSON = await res.json();
+        if (!res.ok) return;
+        const data = await res.json();
+        const tareas = Array.isArray(data) ? data : (data.tasks || []);
 
-        resJSON.forEach(tarea => {
+        tareas.forEach(tarea => {
             tareasList.innerHTML += `
-                <div class="tarea">
+                <div class="tarea${tarea.completada ? ' completada' : ''}">
+                <input type="checkbox" class="check" data-id="${tarea.id}" ${tarea.completada ? "checked" : ""}>
                 <span>${tarea.titulo}</span>
-                <button data-id="${tarea.id}">Eliminar</button>                
+                <button data-id="${tarea.id}">Eliminar</button>
                 </div>`;
         });
 
@@ -45,8 +48,9 @@ const tituloTarea = document.querySelector("#tituloTarea");
     } else {
         tareasList.innerHTML += `
             <div class="tarea">
+            <input type="checkbox" class="check" data-id="${resJSON.task.id}">
             <span>${resJSON.task.titulo}</span>
-            <button data-id="${resJSON.task.id}">Eliminar</button>            
+            <button data-id="${resJSON.task.id}">Eliminar</button>
             </div>`
             tituloTarea.value = "";
     }
@@ -60,16 +64,31 @@ const tituloTarea = document.querySelector("#tituloTarea");
 // ------- -> DELETAR TAREA <- -------
 
 tareasList.addEventListener("click", async (e) => {
-  if (e.target.dataset.id) {
+  const id = e.target.dataset.id;
+  if (!id) return;
+
+  // Toggle completada
+  if (e.target.classList.contains("check")) {
     try {
-        const res = await fetch(`/api/v1/todos/${e.target.dataset.id}`, {
+        const res = await fetch(`/api/v1/todos/${id}`, {
+            method: "PUT",
+        });
+        if (!res.ok) return;
+        e.target.closest(".tarea").classList.toggle("completada");
+    } catch (error) {
+        console.log(error);
+    }
+    return;
+  }
+
+  // Eliminar
+  if (e.target.tagName === "BUTTON") {
+    try {
+        const res = await fetch(`/api/v1/todos/${id}`, {
             method: "delete",
         });
-
-    const resJSON = await res.json();
-
-    e.target.parentElement.remove();
-
+        if (!res.ok) return;
+        e.target.parentElement.remove();
     } catch (error) {
         console.log(error);
     }
