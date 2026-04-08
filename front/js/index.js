@@ -1,5 +1,5 @@
+
 // ------------------------------------ Formulario SignIn
-const API_URL = "http://localhost:3000";
 const forms = document.querySelectorAll("form");
 const signInRES = document.querySelector("#signInRES");
 const signUpRES = document.querySelector("#signUpRES");
