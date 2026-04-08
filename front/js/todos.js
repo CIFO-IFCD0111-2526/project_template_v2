@@ -1,63 +1,79 @@
-/*============================================================
-=                 Gestió js de les tasques                   =
-============================================================*/
 
+document.addEventListener("DOMContentLoaded", async () => {
 
-const lista = document.getElementById("tareasList");
+const tareasList = document.querySelector("#tareasList");
+const nuevaTarea = document.querySelector("#nuevaTarea");
+const tituloTarea = document.querySelector("#tituloTarea");
 
-// GET — Obtenir totes les tasques
-async function cargarTareas() {
-    const res = await fetch("/api/v1/todos", {
-        credentials: "include"
-    });
+// ------- -> LISTAR TAREAS <- -------
 
-    // Si la resposta no és OK, mostrar un error
-    if (!res.ok) {
-        console.error("Error cargando tareas:", res.status);
-        lista.innerHTML = "<p>Error cargando tareas</p>";
-        return;
-    }
+    try {
+        const res = await fetch("/api/v1/todos");
+        const resJSON = await res.json();
 
-    const data = await res.json();
-    const tareas = Array.isArray(data) ? data : (data.tasks || []);
-    renderTareas(tareas);
-}
-
-// Renderizar tareas + PUT toggle completada
-function renderTareas(tareas) {
-    lista.innerHTML = "";
-
-    // Si no hi ha tasques, mostrar un missatge
-    if (!tareas || tareas.length === 0) {
-        lista.innerHTML = "<p>No hay tareas pendientes</p>";
-        return;
-    }
-    tareas.forEach(t => {
-        const div = document.createElement("div");
-        div.classList.add("tarea");
-        if (t.completada) div.classList.add("completada");
-
-        div.innerHTML = `
-            <input type="checkbox" class="check" ${t.completada ? "checked" : ""}>
-            <span>${t.titulo}</span>
-        `;
-
-        div.querySelector(".check").addEventListener("change", async () => {
-            const res = await fetch(`/api/v1/todos/${t.id}`, {
-                method: "PUT",
-                credentials: "include"
-            });
-            // Si la resposta no és OK, mostrar un error i no canviar l'estat visual de la tasca
-            if (!res.ok) {
-                console.error("Error actualizando tareas:", res.status);
-                return;
-            }
-
-            div.classList.toggle("completada");
+        resJSON.forEach(tarea => {
+            tareasList.innerHTML += `
+                <div class="tarea">
+                <span>${tarea.titulo}</span>
+                <button data-id="${tarea.id}">Eliminar</button>                
+                </div>`;
         });
 
-        lista.appendChild(div);
-    });
-}
+    } catch (error) {
+        console.log(error);
+    }
 
-if (lista) cargarTareas();
+// ------- -> NUEVA TAREA <- -------
+
+    nuevaTarea.addEventListener("submit", async (e) => {
+
+    e.preventDefault();
+
+    const titulo = e.target.tituloTarea.value;
+
+    try {
+        const res = await fetch("/api/v1/todos", {
+            method: "post",
+            body: JSON.stringify({ titulo }),
+            headers: { "Content-Type": "application/json" },
+        });
+
+    const resJSON = await res.json();
+
+    if (resJSON.error) {
+        console.log(resJSON.error);
+    } else {
+        tareasList.innerHTML += `
+            <div class="tarea">
+            <span>${resJSON.task.titulo}</span>
+            <button data-id="${resJSON.task.id}">Eliminar</button>            
+            </div>`
+            tituloTarea.value = "";
+    }
+
+    } catch (error) {
+        console.log(error);
+    }
+
+});
+
+// ------- -> DELETAR TAREA <- -------
+
+tareasList.addEventListener("click", async (e) => {
+  if (e.target.dataset.id) {
+    try {
+        const res = await fetch(`/api/v1/todos/${e.target.dataset.id}`, {
+            method: "delete",
+        });
+
+    const resJSON = await res.json();
+
+    e.target.parentElement.remove();
+
+    } catch (error) {
+        console.log(error);
+    }
+  }
+});
+
+});
