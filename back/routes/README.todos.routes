@@ -1,0 +1,39 @@
+per fer servir THUNDERCLIENT per provar els endpoints, 
+el token s'ha de posar a la cookie que envies, a Headers ,
+ amb 
+ "header"=Cookie  
+ i 
+ "value"=accessToken=asdada_token_asdadfa; altrecoses=asdasda_coses_casdsaxa
+
+___________________________
+
+PUT
+/api/v1/todos/X 
+        X=id de Tarea 
+____________________________
+
+ la funció de des/marcar coma a completada retorna un JSON amb la tarea, 
+
+ {
+  id: 3,
+  titulo: 'tit1',
+
+    // en teoria només canvia aquesta part de completada
+  completada: 0,   
+    user_id: 11,
+  createdAt: 2026-04-07T13:45:58.700Z
+}
+en l'estat actual ( després del canvi )
+__________________________________
+GET 
+api/v1/todos 
+    de un usuario LOGUEADO ( manda jwt en cookie )
+
+devuelve un array de tareas...
+
+_______________________________________________________
+
+POST /api/v1/todos/
+    recibe objeto con obj "tarea" en body 
+//pendiente:
+retorna : devuelve datos de la tarea  añadida al servidor. 
