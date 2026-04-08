@@ -1,14 +1,14 @@
-@import url('https://fonts.googleapis.com/css2?family=Arimo:ital,wght@0,400..700;1,400..700&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Arimo:ital,wght@0,400..700;1,400..700&display=swap');
 
 * {
     margin: 0;
     box-sizing: border-box;
-}
+} */
 
-body {
+/* body {
     color: #333;
     font-family: "Arimo", sans-serif;
-}
+} */
 
 header {
     max-width: 900px;
@@ -30,20 +30,20 @@ form h2 {
     color: rgb(0, 0, 0);
 }
 
-.container {
+/* .container {
     max-width: 600px;
     margin: 2rem auto;
     padding: 1rem;
-}
+} */
 
-.card {
+/* .card {
     background: #fff;
     padding: 1.5rem;
     border-radius: 8px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-}
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+} */
 
-#nav {
+/* #nav {
     display: flex;
     gap: 10px;
     padding: 14px 20px;
@@ -56,16 +56,17 @@ form h2 {
     color: rgb(255, 255, 255);
     text-decoration: none;
     font-weight: 700;
-}
+} */
 
-.container-forms {
+/* .container-forms {
     gap: 20px;
     display: flex;
     margin: 0px auto;
     max-width: 700px;
 }
 
-.lado-esquerdo, .lado-direito {
+.lado-esquerdo,
+.lado-direito {
     flex: 1;
     display: flex;
     justify-content: center;
@@ -80,7 +81,7 @@ form h2 {
 
 .lado-esquerdo {
     background-color: rgb(241, 241, 241);
-}
+} */
 
 form {
     padding: 10px 0px 25px 0px;
@@ -104,7 +105,7 @@ label {
     color: rgb(0, 0, 0);
 }
 
-button.submit {
+/* button.submit {
     background-color: #414141;
     color: white;
     padding: 10px 30px;
@@ -123,9 +124,9 @@ button.submit:hover {
     padding: 0.4rem 0.8rem;
     margin-left: auto;
     cursor: pointer;
-}
+} */
 
-#tareasList {
+/* #tareasList {
     margin-top: 1.5rem;
     display: flex;
     flex-direction: column;
@@ -136,7 +137,7 @@ button.submit:hover {
     background: #fff;
     padding: 0.8rem 1rem;
     border-radius: 6px;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -157,9 +158,9 @@ button.submit:hover {
 
 .tarea button:hover {
     background: #c62828;
-}
+} */
 
-button {
+/* button {
     margin: 2%;
     background-color: #373838;
     color: white;
@@ -173,7 +174,7 @@ button {
 
 button:hover {
     background-color: #555;
-}
+} */
 
 footer {
     text-align: center;
@@ -182,7 +183,7 @@ footer {
     margin-top: 20px;
 }
 
-main.container-404 {
+/* main.container-404 {
     text-align: center;
     font-family: 'DM Sans', sans-serif;
     min-height: 80vh;
@@ -204,9 +205,9 @@ main.container-404 {
     line-height: 1;
     letter-spacing: -3px;
     margin: 0;
-}
+} */
 
-.container-404 hr {
+/* .container-404 hr {
     width: 32px;
     border: none;
     border-top: 1px solid #ccc;
@@ -231,14 +232,19 @@ main.container-404 {
     font-weight: 500;
     text-decoration: none;
     transition: opacity 0.15s, transform 0.15s;
-}
+} */
 
-.btn-404:hover {
+/* .btn-404:hover {
     opacity: 0.75;
     transform: translateY(-1px);
-}
+} */
+
 /* Estilos para mensajes de error y exito */
 
-.msg_error { color: red; }
-.msg_ok { color: green; }
+/* .msg_error {
+    color: red;
+}
 
+.msg_ok {
+    color: green;
+} */
