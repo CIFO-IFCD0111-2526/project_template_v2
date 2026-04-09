@@ -31,3 +31,13 @@
 .tarea button:hover {
     background: #c62828;
 }
+
+.tarea.completada {
+    opacity: 0.6;
+    background-color: #f0f0f0;
+}
+
+.tarea.completada span {
+    text-decoration: line-through;
+    color: #aaa;
+}

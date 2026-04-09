@@ -49,9 +49,11 @@ if (forms[0]) {
         signInRES.textContent = resJSON.message;
         signInRES.className = "msg_ok";
 
-        setTimeout(() => {
-          window.location.href = "/todos";
-        }, 3000);
+        // setTimeout(() => {
+        //   window.location.href = "/todos";
+        // }, 3000);
+        location.reload();
+
       }
     } catch (error) {
       signInRES.textContent = "Error de conexión con el servidor.";

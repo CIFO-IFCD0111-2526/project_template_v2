@@ -4,6 +4,19 @@ document.addEventListener("DOMContentLoaded", async () => {
 const tareasList = document.querySelector("#tareasList");
 const nuevaTarea = document.querySelector("#nuevaTarea");
 const tituloTarea = document.querySelector("#tituloTarea");
+const privateMessage = document.querySelector("#privateMessage");
+
+// ------- -> Mensaje Bienvenida <- -------
+
+try {
+    const resMe = await fetch("/api/v1/me"); 
+    if (resMe.ok) {
+        const user = await resMe.json();
+        privateMessage.innerHTML = "Bienvenido " + user.email
+    }
+} catch (error) {
+    console.error(error);
+}
 
 // ------- -> LISTAR TAREAS <- -------
 
@@ -16,14 +29,15 @@ const tituloTarea = document.querySelector("#tituloTarea");
         tareas.forEach(tarea => {
             tareasList.innerHTML += `
                 <div class="tarea${tarea.completada ? ' completada' : ''}">
-                <input type="checkbox" class="check" data-id="${tarea.id}" ${tarea.completada ? "checked" : ""}>
-                <span>${tarea.titulo}</span>
-                <button data-id="${tarea.id}">Eliminar</button>
+                    <input type="checkbox" class="check" data-id="${tarea.id}" ${tarea.completada ? "checked" : ""}>
+                    <span>${tarea.titulo}</span>
+                    <button data-id="${tarea.id}">Eliminar</button>
                 </div>`;
         });
 
     } catch (error) {
         console.log(error);
+        alert("Error de servidor intentelo mas tarde")
     }
 
 // ------- -> NUEVA TAREA <- -------

@@ -48,7 +48,7 @@ router.post("/signin", async (request, response) => {
       console.log("El usuario no existe.");
       return response.status(400).json({ error: "El usuario no existe." });
     } else if (!bcrypt.compareSync(password, results[0].password)) { // Comparar la contraseña que nos han pasado por parámetro con la almacenada encriptada en la DB
-      console.log("La contraseña es incorrecta.");
+      // console.log("La contraseña es incorrecta.");
       return response.status(400).json({ error: "La contraseña es incorrecta." });
     } else {
       // Generar token de acceso

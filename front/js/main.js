@@ -28,7 +28,6 @@ document.addEventListener("DOMContentLoaded", async () => {
       logoutBtn.addEventListener("click", async () => {
           try {
               await fetch("/api/v1/logout", { method: "POST" });
-              localStorage.removeItem("accessToken");
               window.location.href = "/";
           } catch (error) {
               console.error("Error al hacer logout", error);
@@ -47,4 +46,4 @@ document.addEventListener("DOMContentLoaded", async () => {
             <a href="/">SignIn</a>
         `;
   }
-});
+}); 
